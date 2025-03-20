@@ -84,19 +84,30 @@
         </table>
 {{--             <tr>
                 <td colspan="4" class="nopad"> --}}
+        @foreach ( $data['results']['periodos'] as $periodo)
+                    <p>{{$periodo['periodo']}}</p>
+                        @foreach ($periodo['entidades'] as $entidad)
+                            <table class="detalle" width="100%" style="border: solid; border-color: #999999;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="text-align: center" class="column">Entidad: {{$entidad['entidad']}}</th>
+                                        {{-- <th scope="col" style="text-align: center" class="column">Período</th> --}}
+                                        <th scope="col" style="text-align: center" class="column">Situación: {{$entidad['situacion']}}</th>
+                                        <th scope="col" style="text-align: center" class="column">Monto: {{ number_format($entidad['monto'], 2) }}</th>
+                                        <th scope="col" style="text-align: center" class="column">En revisión: {{ $entidad['enRevision'] ? 'Sí' : 'No' }}</th>
+                                        <th scope="col" style="text-align: center" class="column">Proceso judicial: {{ $entidad['procesoJud'] ? 'Sí' : 'No' }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row"></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        @endforeach
 
-                    <table class="detalle" width="100%" style="border: solid; border-color: #999999;">
-                        <thead>
-                            <tr>
-                                <th scope="col" style="text-align: center" class="column">Entidad</th>
-                                <th scope="col" style="text-align: center" class="column">Período</th>
-                                <th scope="col" style="text-align: center" class="column">Situación</th>
-                                <th scope="col" style="text-align: center" class="column">Monto</th>
-                                <th scope="col" style="text-align: center" class="column">En revisión</th>
-                                <th scope="col" style="text-align: center" class="column">Proceso judicial</th>
-                            </tr>
-                        </thead>
-        </table>
+        @endforeach
+
 
                         <!-- START BLOCK : detalle_deuda -->
   {{--                       <tr>
