@@ -945,3 +945,15 @@ a.caldisabled {
     display: flex;
     gap: 1rem;
 }
+
+.entidades {
+    display: block;
+    border: solid;
+    padding: 10px, 15px, 10px, 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.entidades h5 {
+    font-size: 18px;
+}

@@ -84,9 +84,16 @@
         </table>
 {{--             <tr>
                 <td colspan="4" class="nopad"> --}}
-        @foreach ( $data['results']['periodos'] as $periodo)
-                    <p>{{$periodo['periodo']}}</p>
-                        @foreach ($periodo['entidades'] as $entidad)
+        @foreach ( $data['results']['entidades'] as $entidades)
+                    {{-- <p>{{$entidades['entidades']}}</p> --}}
+                    @for ($i = 0, count($entidades, 0), $i++)
+                        <div class="entidades">
+                            <h5>
+
+                            </h5>
+                        </div>
+                    @endfor
+                        @foreach ($entidades['entidades'] as $entidad)
                             <table class="detalle" width="100%" style="border: solid; border-color: #999999;">
                                 <thead>
                                     <tr>

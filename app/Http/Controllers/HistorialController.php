@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use function App\Helpers\organizarPorEntidad;
 
 class HistorialController extends Controller
 {
@@ -22,8 +23,11 @@ class HistorialController extends Controller
 
         // Check if API call was successful
         if ($response->ok()) {
+            // call organizarPorEntidad function to reestructure response
+            $transformedData = organizarPorEntidad($response);
+            /* print_r($transformedData); */
             // Pass data to view
-            return view('historial', ['data' => $response->json()]);
+            return view('historial', ['data' => $transformedData]);
         }
 
         // Handle errors
