@@ -77,27 +77,53 @@
                 <td colspan="4" class="subtitle"><img src="{{asset('img/historial/separator.png')}}" style="border: 0; width: 24px; height: 24px; align-self: left;" /> Central de Riesgo (Cifras expresadas en miles de Pesos)</td>
             </tr>
             <tr>
-                <td colspan="4" class="comments">
+                <td colspan="4" class="comments" style="margin-block-end: 10px; margin-block-start: 10px;">
                     <p>Las entidades que componen el sistema financiero regulado por el BANCO CENTRAL DE LA REPUBLICA ARGENTINA informan mensualmente al mismo los créditos otorgados, montos y situación de pago, reservándose de informar aquellos créditos que por montos pequeños o garantías especiales no revelan riesgo en el sistema. Cualquier incumplimiento activa la publicidad del dato y se incorpora la totalidad de la operatoria.</p>
                 </td>
             </tr>
         </table>
-{{--             <tr>
-                <td colspan="4" class="nopad"> --}}
+
         @foreach ( $data['results']['entidades'] as $entidad)
             <div class="entidad">
-                <h2>
-                    <a href="#">{{ $entidad['entidad'] }}</a>
-                </h2>
-            </div>
-            @foreach ($entidad['periodos'] as $periodo)
-                <div class="periodo">
-                    <p>Period: {{ $periodo['periodo'] }}</p>
-                    <p>Monto: {{ $periodo['monto'] }}</p>
+                <div class="header" onclick="toggleEntidad(this)">
+                    <h2>{{ $entidad['entidad'] }}</h2>
+                    <span class="toggle-symbol">+</span>
                 </div>
-            @endforeach
+                    <table>
+                        <thead>
+                            <th>Período</th>
+                            <th>Situación</th>
+                            <th>Monto</th>
+                            <th>En revisión</th>
+                            <th>En proceso judicial</th>
+                        </thead>
+                            <tbody class="content">
+                                    @foreach ($entidad['periodos'] as $periodo)
+                                        <div class="periodo">
+                                            <p>Periodo: {{ $periodo['periodo'] }}</p>
+                                            <p>Situación: {{ $periodo['situacion'] }}</p>
+                                            <p>Monto: {{ $periodo['monto'] }}</p>
+                                            <p>En revisión:
+                                                @if ($periodo['enRevision'] === false)
+                                                No
+                                                @else
+                                                Si
+                                            @endif
+                                            <p>En proceso judicial:
+                                                @if ($periodo['procesoJud'] === false)
+                                                No
+                                                @else
+                                                Si
+                                            @endif
+                                            </p>
+                                        </div>
+                                    @endforeach
+                            </tbody>
+                    </table>
+            </div>
+        @endforeach
 
-{{--                         @foreach ($entidades['entidades'] as $entidad)
+{{--                      @foreach ($entidades['entidades'] as $entidad)
                             <table class="detalle" width="100%" style="border: solid; border-color: #999999;">
                                 <thead>
                                     <tr>
@@ -117,7 +143,7 @@
                             </table>
                         @endforeach --}}
 
-        @endforeach
+
 
 
                         <!-- START BLOCK : detalle_deuda -->
@@ -128,9 +154,6 @@
                             <td align="center" width="40">{deuda}</td>
                         </tr> --}}
                         <!-- END BLOCK : detalle_deuda -->
-                    </table>
-                </table>
-    <h3>Periodos</h3>
 {{--     @foreach ($data['results']['periodos'] as $periodo)
         <div>
             <p>Periodo: {{ $periodo['periodo'] }}</p>

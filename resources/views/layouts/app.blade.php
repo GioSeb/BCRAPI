@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Nexor')</title>
     @vite(['resources/css/styles3.css'])
+    @vite(['resources/js/app.js'])
 </head>
 <body>
     @include('layouts.header')
