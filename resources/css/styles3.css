@@ -999,3 +999,55 @@ thead.content {
     font-weight: bold;
     color: #1e91a1;
 }
+
+/* Informe Table styling */
+.historialTable {
+    width: 100%;
+    border-collapse: collapse; /* Remove spacing between cells */
+    margin-top: 10px;
+}
+
+/* Table header styling */
+.historialTable thead {
+    background-color: grey;
+    border: 2px solid #ddd;
+}
+
+/* Table header and cell styling */
+.historialTable th,
+.historialTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+/* Zebra-striped columns */
+.historialTable tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* White background for odd columns */
+}
+
+.historialTable tbody tr:nth-child(even) {
+    background-color: lightgrey; /* Grey background for even columns */
+}
+
+.periodo .std_0,
+.periodo .std_1,
+.periodo .std_2 {
+  background: #C8FF75;
+  border: #0a0 1px solid;
+  width: 30px;
+}
+
+.periodo .std_3 {
+  background: #FFF7B7;
+  border: #DDD595 1px solid;
+  width: 30px;
+}
+
+.periodo .std_4,
+.periodo .std_5,
+.periodo .std_6 {
+  background: #FF726F;
+  border: #a00 1px solid;
+  width: 30px;
+}

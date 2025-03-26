@@ -8,7 +8,7 @@ use function App\Helpers\organizarPorEntidad;
 
 class HistorialController extends Controller
 {
-    public function fetch(Request $request)
+    public function fetchHistorial(Request $request)
     {
         // Validate input
         $request->validate([
@@ -25,12 +25,11 @@ class HistorialController extends Controller
         if ($response->ok()) {
             // call organizarPorEntidad function to reestructure response
             $transformedData = organizarPorEntidad($response);
-            /* print_r($transformedData); */
             // Pass data to view
-            return view('historial', ['data' => $transformedData]);
+            return view('informe', ['data' => $transformedData]);
         }
 
         // Handle errors
-        return back()->withErrors(['error' => 'Failed to fetch data from API']);
+        return back()->withErrors(['error' => 'Falla al traer historial de la API']);
     }
 }

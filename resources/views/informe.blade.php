@@ -54,12 +54,12 @@
             <li>Entidad: Entidad bancaria acreedora.</li>
             <li>Situación:
                 <ul>
-                    <li style="color: green">0: <strong> Sin deuda</strong></li>
-                    <li style="color: darkcyan">1: <strong> En situación normal | Situación normal</strong></li>
-                    <li style="color: darkmagenta">2: <strong> Con seguimiento especial | Riesgo bajo</strong></li>
-                    <li style="color: goldenrod">3: <strong> Con problemas | Riesgo medio</strong></li>
-                    <li style="color: darkorange">4: <strong> Con alto riesgo de insolvencia | Riesgo alto</strong></li>
-                    <li style="color: red">5: <strong> Irrecuperable | Irrecuperable</strong></li>
+                    <li style="color: #0a0">0: <strong> Sin deuda</strong></li>
+                    <li style="color: #0a0">1: <strong> En situación normal | Situación normal</strong></li>
+                    <li style="color: #0a0">2: <strong> Con seguimiento especial | Riesgo bajo</strong></li>
+                    <li style="color: #aaa369">3: <strong> Con problemas | Riesgo medio</strong></li>
+                    <li style="color: #a00">4: <strong> Con alto riesgo de insolvencia | Riesgo alto</strong></li>
+                    <li style="color: #a00">5: <strong> Irrecuperable | Irrecuperable</strong></li>
                 </ul>
             </li>
             <li>Monto: Monto adeudado <strong>expresado en miles de pesos.</strong></li>
@@ -91,19 +91,21 @@
                     <h2>{{ $entidad['entidad'] }}</h2>
                     <span class="toggle-symbol">+</span>
                 </div>
-                    <table>
+                    <table class="historialTable">
                         <thead>
-                            <th>Período</th>
-                            <th>Situación</th>
-                            <th>Monto</th>
-                            <th>En revisión</th>
-                            <th>En proceso judicial</th>
+                            <tr>
+                                <th>Período</th>
+                                <th>Situación</th>
+                                <th>Monto</th>
+                                <th>En revisión</th>
+                                <th>En proceso judicial</th>
+                            </tr>
                         </thead>
                             <tbody class="content">
                                     @foreach ($entidad['periodos'] as $periodo)
                                         <tr class="periodo">
-                                            <td>{{ $periodo['periodo'] }}</td>
-                                            <td>{{ $periodo['situacion'] }}</td>
+                                            <td>{{ \Carbon\Carbon::createFromFormat('Ym', $periodo['periodo'])->format('m/Y') }}</td>
+                                            <td class="std_{{$periodo['situacion']}}">{{ $periodo['situacion'] }}</td>
                                             <td>{{ $periodo['monto'] }}</td>
                                             <td>
                                                 @if ($periodo['enRevision'] === false)
@@ -121,7 +123,7 @@
                                         </tr>
                                     @endforeach
                             </tbody>
-                    </table>
+                </table>
             </div>
         @endforeach
 
