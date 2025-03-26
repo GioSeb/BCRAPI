@@ -981,6 +981,10 @@ a.caldisabled {
     background-color: #fff;
 }
 
+thead.content {
+    display: none; /* Initially hidden */
+}
+
 .periodo {
     border-bottom: 1px solid #eee;
     padding: 5px 0;

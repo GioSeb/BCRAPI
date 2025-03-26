@@ -1,21 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
     function toggleEntidad(headerElement) {
         console.log("Toggle function called");
-        const content = headerElement.nextElementSibling;
-        console.log(content);
+        const table = headerElement.closest('.entidad').querySelector('table');
+        const thead = table.querySelector('thead');
+        const tbody = table.querySelector('tbody');
+        console.log(thead, tbody);
 
-        if (content.style.display === "none" || content.style.display === "") {
-            content.style.display = "block";
+        // Toggle thead and tbody visibility
+        if (thead.style.display === "none" || thead.style.display === "") {
+            thead.style.display = "table-header-group"; // Show thead
+            tbody.style.display = "table-row-group"; // Show tbody
             headerElement.querySelector(".toggle-symbol").textContent = "-";
         } else {
-            content.style.display = "none";
+            thead.style.display = "none"; // Hide thead
+            tbody.style.display = "none"; // Hide tbody
             headerElement.querySelector(".toggle-symbol").textContent = "+";
         }
     }
 
     // Attach the function to the window object to make it globally accessible
     window.toggleEntidad = toggleEntidad;
+
+    // Ensure all thead and tbody elements are initially hidden on page load
+    document.querySelectorAll('thead, tbody.content').forEach(element => {
+        element.style.display = "none";
+    });
 });
+
 
 
 

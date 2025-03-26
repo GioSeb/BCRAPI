@@ -70,7 +70,6 @@
             <li>Proceso jurídico: Información sometida a proceso judicial</li>
         </ul>
 
-        {{-- TO DO principal deuda endpoint deudores --}}
 
         <table class="scoring_main" style="border: solid; border-color: #999999;">
             <tr>
@@ -83,6 +82,9 @@
             </tr>
         </table>
 
+        {{-- TO DO principal deuda endpoint deudores --}}
+
+        {{-- TO DO change style to not be the same as central de deudores --}}
         @foreach ( $data['results']['entidades'] as $entidad)
             <div class="entidad">
                 <div class="header" onclick="toggleEntidad(this)">
@@ -99,24 +101,24 @@
                         </thead>
                             <tbody class="content">
                                     @foreach ($entidad['periodos'] as $periodo)
-                                        <div class="periodo">
-                                            <p>Periodo: {{ $periodo['periodo'] }}</p>
-                                            <p>Situación: {{ $periodo['situacion'] }}</p>
-                                            <p>Monto: {{ $periodo['monto'] }}</p>
-                                            <p>En revisión:
+                                        <tr class="periodo">
+                                            <td>{{ $periodo['periodo'] }}</td>
+                                            <td>{{ $periodo['situacion'] }}</td>
+                                            <td>{{ $periodo['monto'] }}</td>
+                                            <td>
                                                 @if ($periodo['enRevision'] === false)
                                                 No
                                                 @else
                                                 Si
                                             @endif
-                                            <p>En proceso judicial:
+                                            <td>
                                                 @if ($periodo['procesoJud'] === false)
                                                 No
                                                 @else
                                                 Si
                                             @endif
-                                            </p>
-                                        </div>
+                                            </td>
+                                        </tr>
                                     @endforeach
                             </tbody>
                     </table>
