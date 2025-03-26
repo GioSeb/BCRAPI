@@ -84,21 +84,25 @@
         </table>
 {{--             <tr>
                 <td colspan="4" class="nopad"> --}}
-        @foreach ( $data['results']['entidades'] as $entidades)
-                    {{-- <p>{{$entidades['entidades']}}</p> --}}
-                    @for ($i = 0, count($entidades, 0), $i++)
-                        <div class="entidades">
-                            <h5>
+        @foreach ( $data['results']['entidades'] as $entidad)
+            <div class="entidad">
+                <h2>
+                    <a href="#">{{ $entidad['entidad'] }}</a>
+                </h2>
+            </div>
+            @foreach ($entidad['periodos'] as $periodo)
+                <div class="periodo">
+                    <p>Period: {{ $periodo['periodo'] }}</p>
+                    <p>Monto: {{ $periodo['monto'] }}</p>
+                </div>
+            @endforeach
 
-                            </h5>
-                        </div>
-                    @endfor
-                        @foreach ($entidades['entidades'] as $entidad)
+{{--                         @foreach ($entidades['entidades'] as $entidad)
                             <table class="detalle" width="100%" style="border: solid; border-color: #999999;">
                                 <thead>
                                     <tr>
                                         <th scope="col" style="text-align: center" class="column">Entidad: {{$entidad['entidad']}}</th>
-                                        {{-- <th scope="col" style="text-align: center" class="column">Período</th> --}}
+                                        <th scope="col" style="text-align: center" class="column">Período</th>
                                         <th scope="col" style="text-align: center" class="column">Situación: {{$entidad['situacion']}}</th>
                                         <th scope="col" style="text-align: center" class="column">Monto: {{ number_format($entidad['monto'], 2) }}</th>
                                         <th scope="col" style="text-align: center" class="column">En revisión: {{ $entidad['enRevision'] ? 'Sí' : 'No' }}</th>
@@ -111,7 +115,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        @endforeach
+                        @endforeach --}}
 
         @endforeach
 
@@ -127,7 +131,7 @@
                     </table>
                 </table>
     <h3>Periodos</h3>
-    @foreach ($data['results']['periodos'] as $periodo)
+{{--     @foreach ($data['results']['periodos'] as $periodo)
         <div>
             <p>Periodo: {{ $periodo['periodo'] }}</p>
             <h4>Entidades</h4>
@@ -141,7 +145,7 @@
                 </ul>
             @endforeach
         </div>
-    @endforeach
+    @endforeach --}}
 </div>
 @endsection
 
