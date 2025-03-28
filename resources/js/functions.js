@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     function toggleEntidad(headerElement) {
-        console.log("Toggle function called");
+
         const table = headerElement.closest('.entidad').querySelector('table');
         const thead = table.querySelector('thead');
         const tbody = table.querySelector('tbody');
-        console.log(thead, tbody);
 
         // Toggle thead and tbody visibility
         if (thead.style.display === "none" || thead.style.display === "") {
@@ -22,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.toggleEntidad = toggleEntidad;
 
     // Ensure all thead and tbody elements are initially hidden on page load
-    document.querySelectorAll('thead, tbody.content').forEach(element => {
+    document.querySelectorAll('thead.historialHead, tbody.content').forEach(element => {
         element.style.display = "none";
     });
 });

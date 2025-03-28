@@ -1051,3 +1051,23 @@ thead.content {
   border: #a00 1px solid;
   width: 30px;
 }
+
+/* deudor */
+
+.deudorTable {
+    width: 100%;
+    border-collapse: collapse; /* Remove spacing between cells */
+    margin-top: 10px;
+}
+
+.deudorTable thead {
+    background-color: grey;
+    border: 2px solid #ddd;
+}
+
+.deudorTable th,
+.deudorTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}

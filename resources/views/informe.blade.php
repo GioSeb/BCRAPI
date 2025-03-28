@@ -5,11 +5,11 @@
 {{-- <div class="w-screen">
     <div class="flex items-center justify-center mb-10">
         <h1 class="text-center text-3xl font-bold">
-            Informe sobre: {{ $data['results']['identificacion'] }}
+            Informe sobre: {{ $historial['results']['identificacion'] }}
         </h1>
     </div> --}}
-    <!-- Access $data (passed from controller) -->
-    {{-- <p class="hidden">Status: {{ $data['status'] }}</p> --}}
+    <!-- Access $historial (passed from controller) -->
+    {{-- <p class="hidden">Status: {{ $historial['status'] }}</p> --}}
 {{--     <div class="flex flex-col items-center justify-center space-y-4">
         <p class="text-center">Inicio del informe</p>
 
@@ -19,12 +19,13 @@
         </div>
 
         <div class="text-center space-y-2">
-            <p>Identificación: {{ $data['results']['identificacion'] }}</p>
-            <p>Denominación: {{ $data['results']['denominacion'] }}</p>
+            <p>Identificación: {{ $historial['results']['identificacion'] }}</p>
+            <p>Denominación: {{ $historial['results']['denominacion'] }}</p>
         </div>
     </div> --}}
 
     {{-- INICIO INFORME --}}
+    {{-- TO DO include bcra legislation --}}
     <div class="scoring">
         <br>
         <h3 class="begin_report">Inicio del informe</h3>
@@ -37,13 +38,13 @@
             </tr>
             <tr>
                 <td class="key">Apellido, Nombre, Razón Social</td>
-                <td colspan="3" class="razonsocial" id="razonsocial">{{ $data['results']['denominacion'] }}</td>
+                <td colspan="3" class="razonsocial" id="razonsocial">{{ $historial['results']['denominacion'] }}</td>
             </tr>
             <tr>
                 <td class="key">CUIT/CUIL</td>
-                <td id="cuitvalue">{{ $data['results']['identificacion'] }}</td>
+                <td id="cuitvalue">{{ $historial['results']['identificacion'] }}</td>
                 <td class="key">Documento</td>
-                <td>{{ substr($data['results']['identificacion'], 2, -1) }}</td>
+                <td>{{ substr($historial['results']['identificacion'], 2, -1) }}</td>
             </tr>
         </table>
 
@@ -83,16 +84,75 @@
         </table>
 
         {{-- TO DO principal deuda endpoint deudores --}}
+        @if ($deudor['status'] === 200)
+            <table class="deudorTable">
+                <thead>
+                    <tr>
+                        <th>Entidad</th>
+                        <th>Situación</th>
+                        <th>Monto</th>
+                        <th>Período</th>
+                        <th>Dias de atraso</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($deudor['results']['periodos'] as $arrayDeudor)
+                        @foreach ($arrayDeudor['entidades'] as $entidadDeudor)
+                            <tr class="periodo">
+                                <td>{{ $entidadDeudor['entidad'] }}</td>
+                                <td class="std_{{$entidadDeudor['situacion']}}" >{{ $entidadDeudor['situacion'] }}</td>
+                                <td>{{ $entidadDeudor['monto'] }}</td>
+                                <td>{{ \Carbon\Carbon::createFromFormat('Ym', $arrayDeudor['periodo'])->format('m/Y') }}</td>
+                                <td>{{ $entidadDeudor['diasAtrasoPago'] }}</td>
+                                <td>
+                                    <div>
+                                        @if ($entidadDeudor['refinanciaciones'] === true)
+                                            <p>Refinanciación: Si</p>
+                                        @endif
+                                        @if ($entidadDeudor['recategorizacionOblig'] === true)
+                                            <p>Recategorización Obligatoria: Si</p>
+                                        @endif
+                                        @if ($entidadDeudor['situacionJuridica'] === true)
+                                            <p>Situación Jurídica: Si</p>
+                                        @endif
+                                        @if ($entidadDeudor['irrecDisposicionTecnica'] === true)
+                                            <p>Irrecuperable por Disposición Técnica: Si</p>
+                                        @endif
+                                        @if ($entidadDeudor['enRevision'] === true)
+                                            <p>En Revisión: Si</p>
+                                        @endif
+                                        @if ($entidadDeudor['procesoJud'] === true)
+                                            <p>Proceso Judicial: Si</p>
+                                        @endif
+                                        @if ($entidadDeudor['refinanciaciones'] === false && $entidadDeudor['recategorizacionOblig'] === false && $entidadDeudor['situacionJuridica'] === false && $entidadDeudor['irrecDisposicionTecnica'] === false && $entidadDeudor['enRevision'] === false && $entidadDeudor['procesoJud'] === false)
+                                            <p>-</p>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <div>
+                <h2>
+                    {{ $deudor['errorMessages'] }}
+                </h2>
+            </div>
+        @endif
 
         {{-- TO DO change style to not be the same as central de deudores --}}
-        @foreach ( $data['results']['entidades'] as $entidad)
+        @foreach ( $historial['results']['entidades'] as $entidadHistorial)
             <div class="entidad">
                 <div class="header" onclick="toggleEntidad(this)">
-                    <h2>{{ $entidad['entidad'] }}</h2>
+                    <h2>{{ $entidadHistorial['entidad'] }}</h2>
                     <span class="toggle-symbol">+</span>
                 </div>
                     <table class="historialTable">
-                        <thead>
+                        <thead class="historialHead">
                             <tr>
                                 <th>Período</th>
                                 <th>Situación</th>
@@ -102,7 +162,7 @@
                             </tr>
                         </thead>
                             <tbody class="content">
-                                    @foreach ($entidad['periodos'] as $periodo)
+                                    @foreach ($entidadHistorial['periodos'] as $periodo)
                                         <tr class="periodo">
                                             <td>{{ \Carbon\Carbon::createFromFormat('Ym', $periodo['periodo'])->format('m/Y') }}</td>
                                             <td class="std_{{$periodo['situacion']}}">{{ $periodo['situacion'] }}</td>
@@ -158,7 +218,7 @@
                             <td align="center" width="40">{deuda}</td>
                         </tr> --}}
                         <!-- END BLOCK : detalle_deuda -->
-{{--     @foreach ($data['results']['periodos'] as $periodo)
+{{--     @foreach ($historial['results']['periodos'] as $periodo)
         <div>
             <p>Periodo: {{ $periodo['periodo'] }}</p>
             <h4>Entidades</h4>
