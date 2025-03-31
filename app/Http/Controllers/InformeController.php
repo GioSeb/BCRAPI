@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use function App\Helpers\organizarPorEntidad;
 
 /* TO DO make call to ddbb to fetch name from cuit */
+/* TO DO manage errors better */
 
 class InformeController extends Controller
 {
@@ -41,6 +42,24 @@ class InformeController extends Controller
         return back()->withErrors(['error' => 'Falla al traer deuda de la API']);
     }
 
+    // cheques rechazados
+    public function fetchChequesRechazados($cuit){
+        // api call
+        $response = Http::withoutVerifying()->get("https://api.bcra.gob.ar/CentralDeDeudores/v1.0/Deudas/ChequesRechazados/{$cuit}");
+
+        // check succesfull
+        /* TO DO resolve 404 if no check is found */
+        if($response->ok()){
+            $rechazados = $response;
+            return $rechazados->json();
+        }
+
+        // handle errors
+        if ($response->status() === 404) {
+            return response()->json(['error' => 'No se encontraron cheques rechazados para este CUIT'], 404);
+        }
+    }
+
     public function fetchInforme(Request $request) {
         // Validate input
         $request->validate([
@@ -53,13 +72,15 @@ class InformeController extends Controller
         // Fetch data from both API calls
         $historial = $this->fetchHistorial($cuit);
         $deudor = $this->fetchDeudor($cuit);
+        $rechazados = $this->fetchChequesRechazados(($cuit));
 
         //return both to the view
         // Check if both API calls returned data
-        if ($historial && $deudor) {
+        if ($historial && $deudor && $rechazados) {
             return view('informe', [
                 'historial' => $historial,
                 'deudor' => $deudor,
+                'rechazados' => $rechazados
             ]);
 
         }

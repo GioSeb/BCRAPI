@@ -34,7 +34,7 @@
         {{-- Identificacion --}}
         <table class="scoring_main" style="border: solid; border-color: #999999;">
             <tr>
-                <td colspan="4" class="subtitle"><img src="{{asset('img/historial/separator.png')}}" style="border: 0; width: 24px; height: 24px; align-self: left;"/> Identificación</td>
+                <td colspan="4" class="subtitle"><img src="{{asset('img/informe/separator.png')}}" style="border: 0; width: 24px; height: 24px; align-self: left;"/> Identificación</td>
             </tr>
             <tr>
                 <td class="key">Apellido, Nombre, Razón Social</td>
@@ -74,7 +74,7 @@
 
         <table class="scoring_main" style="border: solid; border-color: #999999;">
             <tr>
-                <td colspan="4" class="subtitle"><img src="{{asset('img/historial/separator.png')}}" style="border: 0; width: 24px; height: 24px; align-self: left;" /> Central de Riesgo (Cifras expresadas en miles de Pesos)</td>
+                <td colspan="4" class="subtitle"><img src="{{asset('img/informe/separator.png')}}" style="border: 0; width: 24px; height: 24px; align-self: left;" /> Central de Riesgo (Cifras expresadas en miles de Pesos)</td>
             </tr>
             <tr>
                 <td colspan="4" class="comments" style="margin-block-end: 10px; margin-block-start: 10px;">
@@ -187,52 +187,32 @@
             </div>
         @endforeach
 
-{{--                      @foreach ($entidades['entidades'] as $entidad)
-                            <table class="detalle" width="100%" style="border: solid; border-color: #999999;">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" style="text-align: center" class="column">Entidad: {{$entidad['entidad']}}</th>
-                                        <th scope="col" style="text-align: center" class="column">Período</th>
-                                        <th scope="col" style="text-align: center" class="column">Situación: {{$entidad['situacion']}}</th>
-                                        <th scope="col" style="text-align: center" class="column">Monto: {{ number_format($entidad['monto'], 2) }}</th>
-                                        <th scope="col" style="text-align: center" class="column">En revisión: {{ $entidad['enRevision'] ? 'Sí' : 'No' }}</th>
-                                        <th scope="col" style="text-align: center" class="column">Proceso judicial: {{ $entidad['procesoJud'] ? 'Sí' : 'No' }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row"></th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        @endforeach --}}
+        {{-- cheques rechazados --}}
 
+        <table class="scoring_main" style="border: solid; border-color: #999999;">
+            <tr>
+                <td colspan="4" class="subtitle"><img src="{{asset('img/informe/separator.png')}}" style="border: 0; width: 24px; height: 24px; align-self: left;" /> Cheques Rechazados</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="comments" style="margin-block-end: 10px; margin-block-start: 10px;">
+                    <p>Estas consultas se realizan sobre la Central de cheques rechazados, conformada por datos
+                        recibidos diariamente de los bancos, que se publican sin alteraciones de acuerdo con los plazos
+                        dispuestos en el inciso 4 del artículo 26 de la Ley 25.326 de Protección de los Datos Personales
+                        y con el criterio establecido en el punto 1.3. de la Sección 1 del Texto ordenado Centrales de
+                        Información.</p>
+                </td>
+            </tr>
+            {{-- TO DO find refused checks to see the table --}}
+            <tr>
+                <td>
+                    {{-- TO DO style --}}
+                    {{-- sin rechazos --}}
+                    <p class="informe_clean"><img src="{{asset('img/informe/clean.png')}}" alt="limpio">No registra cheques rechazados.</p>
+                </td>
+            </tr>
 
+        </table>
 
-
-                        <!-- START BLOCK : detalle_deuda -->
-  {{--                       <tr>
-                            <td>{entidad}</td>
-                            <td align="center" width="70">{fecha}</td>
-                            <td align="center" width="40"><span class="std std_{situacion}">{situacion}</span></td>
-                            <td align="center" width="40">{deuda}</td>
-                        </tr> --}}
-                        <!-- END BLOCK : detalle_deuda -->
-{{--     @foreach ($historial['results']['periodos'] as $periodo)
-        <div>
-            <p>Periodo: {{ $periodo['periodo'] }}</p>
-            <h4>Entidades</h4>
-            @foreach ($periodo['entidades'] as $entidad)
-                <ul>
-                    <li>Entidad: {{ $entidad['entidad'] }}</li>
-                    <li>Situación: {{ $entidad['situacion'] }}</li>
-                    <li>Monto: {{ number_format($entidad['monto'], 2) }}</li>
-                    <li>En Revisión: {{ $entidad['enRevision'] ? 'Sí' : 'No' }}</li>
-                    <li>Proceso Judicial: {{ $entidad['procesoJud'] ? 'Sí' : 'No' }}</li>
-                </ul>
-            @endforeach
-        </div>
-    @endforeach --}}
-</div>
+    </div>
 @endsection
 
