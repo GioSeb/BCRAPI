@@ -83,7 +83,7 @@
             </tr>
         </table>
 
-        {{-- TO DO principal deuda endpoint deudores --}}
+
         @if ($deudor['status'] === 200)
             <table class="deudorTable">
                 <thead>
