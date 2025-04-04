@@ -6,6 +6,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/informe', function () {
-    return view('welcome');
+Route::get('/select', function(){
+    return view('select');
+});
+
+Route::get('/nuevo-informe', function () {
+    return view('nuevo-informe');
 });

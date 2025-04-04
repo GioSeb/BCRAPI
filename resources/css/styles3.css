@@ -1071,3 +1071,288 @@ thead.content {
     padding: 8px;
     text-align: center;
 }
+
+
+
+
+/* INDEX STYLE */
+/* Main container layout */
+.inicio {
+    display: flex; /* Enable flexbox for side-by-side layout */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens if needed */
+    width: 100%;
+    background-color: #111827; /* Dark background */
+    padding: 48px 20px; /* Add padding around the content (top/bottom, left/right) */
+    gap: 40px; /* Space between the info and login sections */
+}
+
+/* Left side info section */
+.inicio-info {
+    flex: 1; /* Allow this section to grow and take available space */
+    min-width: 300px; /* Prevent it from getting too narrow */
+    padding: 20px; /* Internal padding */
+}
+
+/* Right side login section */
+.inicio-login {
+    flex: 1; /* Allow this section to grow and take available space */
+    min-width: 300px; /* Prevent it from getting too narrow */
+    display: flex; /* Optional: helps center form if needed */
+    justify-content: center; /* Center the login form horizontally */
+    align-items: flex-start; /* Align the form to the top */
+    padding: 20px; /* Internal padding */
+}
+
+/* Styling within inicio-info */
+.inicio-info h1 {
+    color: white;
+    margin-bottom: 15px; /* Space below heading */
+    font-size: 2em; /* Make it larger */
+    line-height: 1.3;
+}
+
+.inicio-info h3 {
+    color: lightgray; /* As requested for h2 */
+    margin-bottom: 25px; /* Space below subheading */
+    font-weight: normal; /* Less emphasis than h1 */
+    font-size: 1.1em;
+}
+
+.inicio-info .login-video {
+    background-color: #3b82f6; /* A nice light blue */
+    color: white;
+    width: 120px; /* Adjusted slightly for padding */
+    padding: 10px 15px; /* Vertical and horizontal padding */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Indicate interactivity */
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 30px; /* Space below button */
+    transition: background-color 0.2s ease; /* Smooth hover effect */
+}
+
+.inicio-info .login-video:hover {
+    background-color: #2563eb; /* Darker blue on hover */
+}
+
+.inicio-info hr {
+    border: none;
+    border-top: 1px solid #4b5563; /* A subtle line color */
+    margin-top: 20px;
+}
+
+/* Login form container */
+.login-form {
+    width: 100%; /* Take full width of its container (.inicio-login) */
+    max-width: 400px; /* Prevent form from becoming too wide */
+    background-color: #1f2937; /* Slightly lighter dark background */
+    padding: 36px; /* Generous padding inside the form */
+    border-radius: 8px; /* Rounded corners for the form box */
+}
+
+/* Styling within login-form */
+.login-form label {
+    display: block; /* Make labels take their own line */
+    color: lightgray; /* Text color for labels */
+    margin-bottom: 8px; /* Space below label */
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+/* Explicitly style the label for password */
+.login-form label[for="password"] {
+     margin-top: 15px; /* Add space above the password label */
+}
+
+
+.login-form .login-email,
+.login-form .login-pass {
+    width: 100%; /* Make inputs take full width */
+    padding: 12px; /* Padding inside inputs */
+    margin-bottom: 15px; /* Space below inputs */
+    background-color: #4b5563; /* Gray background */
+    color: lightgray; /* Light gray text color */
+    border: 1px solid #6b7280; /* Subtle border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1em;
+}
+
+.login-form .login-email::placeholder,
+.login-form .login-pass::placeholder {
+    color: #9ca3af; /* Slightly dimmer placeholder text */
+}
+
+.login-form .login-button {
+    width: 100%; /* Match width of inputs */
+    padding: 12px; /* Padding */
+    background-color: #3b82f6; /* Light blue background */
+    color: white; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Indicate interactivity */
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 10px; /* Space above button */
+    margin-bottom: 20px; /* Space below button */
+    transition: background-color 0.2s ease; /* Smooth hover effect */
+}
+
+.login-form .login-button:hover {
+    background-color: #2563eb; /* Darker blue on hover */
+}
+
+.login-form .login-lost {
+    display: block; /* Make it take its own line */
+    color: #60a5fa; /* Blue text color (a lighter blue) */
+    text-decoration: none; /* Remove underline */
+    text-align: center; /* Center the text */
+    margin-bottom: 15px; /* Space below */
+    font-size: 0.9em;
+}
+
+.login-form .login-lost:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+
+.login-form .login-crear {
+    display: block; /* Make it take its own line */
+    color: #a5b4fc; /* A different shade, maybe lighter/purple-ish blue */
+    text-decoration: none; /* Remove underline */
+    text-align: center; /* Center the text */
+    margin-top: 20px; /* Space above */
+    font-size: 0.95em;
+    font-weight: bold;
+}
+
+.login-form .login-crear:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .inicio {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        padding: 20px 15px; /* Reduce padding slightly */
+        gap: 20px; /* Reduce gap */
+    }
+
+    .inicio-info,
+    .inicio-login {
+        min-width: auto; /* Remove minimum width */
+        padding: 15px; /* Adjust padding */
+        align-items: center; /* Center login form when stacked */
+    }
+
+     .login-form {
+        padding: 20px; /* Adjust form padding */
+    }
+
+    .inicio-info h1 {
+        font-size: 1.8em; /* Slightly smaller heading */
+    }
+
+     .inicio-info h3 {
+        font-size: 1em; /* Slightly smaller subheading */
+    }
+}
+    /* nuevo-informe STYLES */
+
+.nuevo-main {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 75px;
+    margin-right: 75px;
+    background-color: lightgray;
+    padding: 25px;
+    justify-content: center;
+}
+
+.nuevo-informe{
+    width: 100%;
+    background-color: #30415a;
+    align-items: center;
+    justify-content: center;
+    width: 700px;
+    justify-self: center;
+}
+
+.nuevo-informe h1 {
+    color: white;
+    font-weight: bold;
+    font-size: xx-large;
+    align-content: center;
+    padding: 25px;
+    text-align: center;
+}
+
+.nuevo-form {
+    justify-self: center;
+    align-items: center;
+    height: 50px;
+    margin-bottom: 25px;
+}
+
+.label-cuit {
+    background-color: #30415a;
+    margin: 25px;
+    padding: 10px;
+    text-align: center;
+    font-size: large;
+    color: white;
+    justify-self: center;
+    align-self: center;
+    width: 100px;
+    height: 50px;
+}
+
+/* TO DO fix aligment */
+
+.input-cuit {
+    width: 500px;
+    height: 38px;
+    border: none;
+    padding: 5px;
+    align-self: center;
+    font-size: large;
+}
+
+.button-cuit {
+    background-color: #30415a;
+    height: 40px;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    font-size: large;
+    border: none;
+    margin: 15px;
+}
+
+.button-cuit:hover{
+    background-color: #2563eb; /* Darker blue on hover */
+    cursor: pointer;
+}
+
+.nuevo-legis{
+    background-color: #2c4d50;
+    width: 700px;
+    padding: 15px;
+    align-self: center;
+    justify-self: center;
+}
+
+.nuevo-legis p {
+    color: white;
+    font-size: medium;
+    font-weight: 50;
+}
+
+/* SELECT styles */
+
+.select-main img{
+    height: 100px;
+    width: 500px;
+}
+
+/* TO DO fix padding and margin from body */
