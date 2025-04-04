@@ -1350,9 +1350,38 @@ thead.content {
 
 /* SELECT styles */
 
-.select-main img{
+.select-main {
+    background-color: lightgrey;
+    margin: 25px;
+}
+
+.select-logo {
+    justify-self: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.select-logo img{
     height: 100px;
     width: 500px;
+}
+
+.select-informe {
+    width: 100%;
+    background-color: #30415a;
+    align-items: center;
+    justify-content: center;
+    width: 700px;
+    justify-self: center;
+}
+
+.select-informe h1 {
+    color: white;
+    font-weight: bold;
+    font-size: xx-large;
+    align-content: center;
+    padding: 25px;
+    text-align: center;
 }
 
 /* TO DO fix padding and margin from body */
