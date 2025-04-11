@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,4 +30,18 @@ Route::get('/select', function(){
 
 Route::get('/nuevo-informe', function () {
     return view('nuevo-informe');
+});
+
+Route::middleware(['auth', 'can:manage-users']) // Apply middleware here
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('users', UserController::class);
+        // Add any other admin routes here
+});
+
+/* MODIFY TO MATCH BREEZE */
+
+Route::get('/panel', function (){
+    return view('admin.users.panel');
 });

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail; // If sending email
+use Illuminate\Support\Facades\Gate; // If using Gate inside methods directly
+use Illuminate\Support\Facades\Auth;
 // Potentially use an Action class or Notification for cleaner email sending
 
 class UserController extends Controller
@@ -15,14 +17,14 @@ class UserController extends Controller
     // Apply authorization middleware to all methods in this controller
     public function __construct()
     {
-        // Ensure only authenticated users who pass the 'manage-users' gate can access these methods
-        $this->middleware(['auth', 'can:manage-users']);
+        // Ensure only authenticated users who pass the 'manage-users' gate can access these methods TO DO
+        /* $this->middleware(['auth', 'can:manage-users']); */
     }
 
     public function index()
     {
         $users = User::latest()->paginate(10); // Get users for listing
-        return view('admin.users.index', compact('users'));
+        return view('admin.users.panel', compact('users'));
     }
 
     public function create()
@@ -102,10 +104,10 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-         // Optional: Add checks to prevent deleting the last admin or oneself
-         if ($user->id === auth()->id()) {
+         // Optional: Add checks to prevent deleting the last admin or oneself TO DO
+/*          if ($user->id === auth()->id()) {
               return back()->with('error', 'You cannot delete yourself.');
-         }
+         } */
          // Add more checks as needed
 
          $user->delete();
