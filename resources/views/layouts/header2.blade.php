@@ -1,4 +1,4 @@
-<header>
+{{-- <header>
     <div class="header">
         <img src="{{asset('img/logo.jpg')}}" alt="logo">
     </div>
@@ -10,3 +10,4 @@
         </ul>
     </div>
 </header>
+ --}}

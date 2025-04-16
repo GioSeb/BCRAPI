@@ -1,5 +1,10 @@
+
 @charset "utf-8";
 /* CSS Document */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 BODY {
   background: url("../images/bg-main.jpg") repeat-x;
   font: 12px 'Source Sans Pro', Arial, Helvetica, sans-serif;
