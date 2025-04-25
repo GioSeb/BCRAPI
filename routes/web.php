@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\InformeController;
+use App\Http\Controllers\SelectViewController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,9 +26,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/select', function(){
-    return view('select');
-});
+// Define the route for the select view
+Route::get('/select', [SelectViewController::class, 'index'])
+    ->middleware(['auth']) // <-- Apply auth middleware HERE
+    ->name('select.view'); // <-- Give it a name for easy reference
 
 Route::get('/nuevo-informe', function () {
     return view('nuevo-informe');
@@ -50,3 +52,7 @@ Route::middleware(['auth', 'can:manage-users']) // Apply middleware here
 Route::get('/panel', function (){
     return view('admin.users.panel');
 });
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
