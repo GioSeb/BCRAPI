@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\InformeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +31,10 @@ Route::get('/select', function(){
 
 Route::get('/nuevo-informe', function () {
     return view('nuevo-informe');
+});
+
+Route::get('/informe', function (){
+    return view('informe', [InformeController::class, 'fetchInforme']);
 });
 
 Route::middleware(['auth', 'can:manage-users']) // Apply middleware here

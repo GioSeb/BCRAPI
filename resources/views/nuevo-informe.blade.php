@@ -4,7 +4,7 @@
 @section('content')
 <div class="nuevo-main">
     <div class="nuevo-informe"><h1>NUEVO INFORME</h1></div>
-    <form class="nuevo-form" action="{{ route('informe.fetch') }}" method="GET">
+    <form class="nuevo-form" action="{{ route('/informe') }}" method="GET">
         <label for="cuit" class="label-cuit">Ingrese CUIT/CUIL</label>
         <input class="input-cuit" type="text" name="cuit" id="cuit" placeholder="CUIT/CUIL" required />
         <button class="button-cuit" type="submit">ENVIAR</button>
