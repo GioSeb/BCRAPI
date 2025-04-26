@@ -56,3 +56,13 @@ Route::get('/panel', function (){
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
+
+// TO DO auth para acceder al panel si sos admin
+Route::middleware(['auth', 'can:manage-users'])->prefix('admin')->name('admin.')->group(function () {
+    // This route will handle GET requests to /admin/users and call UserController@index
+    Route::get('/panel', [UserController::class, 'index'])->name('panel');
+});
+
+/* Route::get('/panel', [UserController::class, 'index'])
+->middleware(['auth', 'can:manage-users']) // Apply middleware
+->name('panel'); // Give it a name */

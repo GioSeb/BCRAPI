@@ -17,14 +17,16 @@ class UserController extends Controller
     // Apply authorization middleware to all methods in this controller
     public function __construct()
     {
-        // Ensure only authenticated users who pass the 'manage-users' gate can access these methods TO DO
+        // TO DO Ensure only authenticated users who pass the 'manage-users' gate can access these methods TO DO
         /* $this->middleware(['auth', 'can:manage-users']); */
     }
 
     public function index()
     {
-        $users = User::latest()->paginate(10); // Get users for listing
-        return view('admin.users.panel', compact('users'));
+        $users = User::with('role')      // Eager load roles if needed (as in the view)
+        ->latest()          // Order by newest
+        ->paginate(15);
+        return view('admin.users.panel', ['users' => $users]);
     }
 
     public function create()
@@ -37,21 +39,29 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // Add validation for is_admin if you have a checkbox/select for it
-            // 'is_admin' => ['sometimes', 'boolean']
+            'password' => 'required|password',
+            'role_id' => 'required|int',
+            'actividad' => 'required|string',
+            'cargo' => 'required|string',
+            'vinculo' => 'required|string',
+            'domicilio' => 'required|string',
+            'localidad' => 'required|string',
+            'telefono' => 'required|string',
+            'cuit' => 'required|string',
+            'estado' => 'required|string',
         ]);
 
-        // 1. Generate a random password
-        $randomPassword = Str::random(12); // Generate a 12-character random string
+/*         // 1. Generate a random password
+        $randomPassword = Str::random(12); // Generate a 12-character random string */
 
-        // 2. Create the user
+/*         // 2. Create the user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($randomPassword), // IMPORTANT: Always hash passwords!
             'email_verified_at' => null, // Start as not verified
             // 'is_admin' => $request->boolean('is_admin'), // Handle setting admin status if applicable
-        ]);
+        ]); */
 
         // --- Password Handling ---
         // Option A (Recommended): Send a Password Reset Link (User sets their own password)

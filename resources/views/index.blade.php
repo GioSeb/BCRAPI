@@ -69,7 +69,7 @@
                         </button>
                     </div>
                 </form>
-                <a class="login-crear" href="{{ route('register') }}">Crear cuenta</a> {{-- TO DO crear cuenta --}}
+                {{-- <a class="login-crear" href="{{ route('register') }}">Crear cuenta</a> --}} {{-- TO DO crear cuenta con autorizacion de admin o master --}}
             </div>
         </div>
     </div>

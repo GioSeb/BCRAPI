@@ -53,6 +53,7 @@ class RegisteredUserController extends Controller
             'localidad' => $request->localidad,
             'telefono' => $request->telefono,
             'cuit' => $request->cuit,
+            'role_id' => 1,
         ]);
 
         event(new Registered($user));
