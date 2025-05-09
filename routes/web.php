@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\InformeController;
 use App\Http\Controllers\SelectViewController;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
@@ -49,10 +50,17 @@ Route::middleware(['auth', 'can:manage-users']) // Apply middleware here
 
 /* MODIFY TO MATCH BREEZE */
 
-Route::get('/panel', function (){
-    return view('admin.users.panel');
-});
+Route::get('/panel', function () {
+    // Fetch the users here
+    $users = User::with('role') // Eager load roles if needed
+                 ->latest()
+                 ->paginate(15); //TO DO escalar paginate
 
+    // Now $users is defined and contains the user data
+    return view('admin.users.panel', ['users' => $users]);
+})->middleware(['auth', 'can:manage-users'])->name('panel.view');
+
+/* TO DO register temporal, cambiar a admin/users/create.blade */
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');

@@ -1391,6 +1391,78 @@ thead.content {
 
 /* agregar estilos */
 
+/* Panel styles */
 
+.panel-main {
+    margin: 50px 200px 50px 200px;
+}
+
+
+.panel-agregar-usuario {
+    background-color: #18bc75;
+    border-radius: 8px;
+    height: 100px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.panel-agregar-link {
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: large;
+}
+
+.panel-agregar-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 8px;
+}
+
+.agregar-table {
+    width: 100%;                   /* w-full */
+    border-collapse: collapse;    /* border-collapse */
+    border: 1px solid #D1D5DB;    /* border border-gray-300 */
+}
+
+.agregar-table thead tr {
+    background-color: #F3F4F6;    /* bg-gray-100 */
+}
+
+.agregar-table th,
+.agregar-table td {
+    border: 1px solid #D1D5DB;    /* border border-gray-300 */
+    padding: 0.25rem 0.5rem;       /* px-2 py-1 */
+    text-align: left;              /* text-left */
+}
+
+.agregar-table tbody tr {
+    border: 1px solid #D1D5DB;    /* border border-gray-300 */
+}
+
+.agregar-table tbody tr:hover {
+    background-color: #F9FAFB;    /* hover:bg-gray-50 */
+}
+
+.panel-usuarios-editar{
+    color: #3B82F6;
+    text-decoration: underline;
+    margin-right: 0.5rem;
+}
+
+.panel-usuario-eliminar {
+    color: #EF4444;
+    text-decoration: underline;
+}
+
+.panel-form-eliminar {
+    display: inline-block;
+}
 
 /* TO DO fix padding and margin from body */

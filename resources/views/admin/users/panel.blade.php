@@ -3,57 +3,58 @@
 
 @section('content')
 
-<div class="main">
+<div class="panel-main">
     <h1>Usuarios generados</h1>
-    <div class="agregar-usuario mb-4"> {{-- Added margin-bottom for spacing --}}
+    <div class="panel-agregar-usuario"> {{-- Added margin-bottom for spacing --}}
         {{-- Link to the route for creating a new user --}}
         {{-- TO DO users create --}}
-        <a href="{{ route('admin.users.create') }}" class="agregar-link">
-            <img src="{{asset('img/panel/plus.png')}}" alt="agregar" class="agregar-plus w-4 h-4 mr-2"> {{-- Basic styling for image --}}
+        {{-- TO DO make all of parent div a button, not just the anchor --}}
+        <a href="{{ route('admin.users.create') }}" class="panel-agregar-link">
+            <img src="{{asset('img/panel/plus.png')}}" alt="agregar" class="panel-agregar-image">
             Agregar Usuario
         </a>
     </div>
 
     {{-- Check if there are any users to display --}}
     @if($users->count() > 0)
-        <table class="agregar-table w-full border-collapse border border-gray-300"> {{-- Added basic table styling --}}
+        <table class="agregar-table"> {{-- Added basic table styling --}}
             <thead>
                 <tr class="bg-gray-100">
                     {{-- Match table headers with the data you display below --}}
-                    <th class="border border-gray-300 px-2 py-1 text-left">Fecha Creación</th>
-                    <th class="border border-gray-300 px-2 py-1 text-left">Nombre/Razón Social</th>
-                    <th class="border border-gray-300 px-2 py-1 text-left">Correo</th>
-                    <th class="border border-gray-300 px-2 py-1 text-left">Actividad</th>
-                    <th class="border border-gray-300 px-2 py-1 text-left">Cargo</th>
-                    <th class="border border-gray-300 px-2 py-1 text-left">Vínculo</th>
-                    {{-- Removed Estado as it wasn't used below, add if needed --}}
-                    <th class="border border-gray-300 px-2 py-1 text-left">Rol</th>
-                    <th class="border border-gray-300 px-2 py-1 text-left">Acciones</th>
+                    <th class="">Fecha Creación</th>
+                    <th class="">Nombre/Razón Social</th>
+                    <th class="">Correo</th>
+                    <th class="">Actividad</th>
+                    <th class="">Cargo</th>
+                    <th class="">Vínculo</th>
+                    <th>Estado</th>
+                    <th class="">Rol</th>
+                    <th class="">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 {{-- Loop through the $users collection passed from the controller --}}
                 {{-- Use $users (plural) as passed from controller, and $user (singular) for each item --}}
                 @foreach ($users as $user)
-                    <tr class="border border-gray-300 hover:bg-gray-50">
+                    <tr class="">
                         {{-- Access properties using object notation -> --}}
                         {{-- Format created_at date (ensure it's a Carbon instance) --}}
-                        <td class="border border-gray-300 px-2 py-1">{{ $user->created_at->format('d/m/Y') }}</td>
-                        <td class="border border-gray-300 px-2 py-1">{{ $user->name }}</td>
-                        <td class="border border-gray-300 px-2 py-1">{{ $user->email }}</td>
-                        <td class="border border-gray-300 px-2 py-1">{{ $user->actividad ?? 'N/A' }}</td>
-                        <td class="border border-gray-300 px-2 py-1">{{ $user->cargo ?? 'N/A' }}</td>
-                        <td class="border border-gray-300 px-2 py-1">{{ $user->vinculo ?? 'N/A' }}</td>
-                        <td class="border border-gray-300 px-2 py-1">{{ $user->role->name ?? 'Sin Rol' }}</td>
-                        <td class="border border-gray-300 px-2 py-1">{{ $user->estado ?? 'N/A' }}</td>
-                            {{-- Link to edit user --}}
-                            <a href="{{ route('admin.users.edit', $user->id) }}" class="text-blue-500 hover:underline mr-2">Editar</a>
+                        <td class="">{{ $user->created_at->format('d/m/Y') }}</td>
+                        <td class="">{{ $user->name }}</td>
+                        <td class="">{{ $user->email }}</td>
+                        <td class="">{{ $user->actividad ?? 'N/A' }}</td>
+                        <td class="">{{ $user->cargo ?? 'N/A' }}</td>
+                        <td class="">{{ $user->vinculo ?? 'N/A' }}</td>
+                        <td class="">{{ $user->role->name ?? 'Sin Rol' }}</td>
+                        <td class="">{{ $user->estado ?? 'N/A' }}</td>
+                        <td>
+                            <a href="{{ route('admin.users.edit', $user->id) }}" class="panel-usuarios-editar">Editar</a>
 
                             {{-- Form for deleting user --}}
-                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline-block" onsubmit="return confirm('¿Está seguro de que desea eliminar este usuario?');">
+                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="panel-form-eliminar" onsubmit="return confirm('¿Está seguro de que desea eliminar este usuario?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:underline">Eliminar</button>
+                                <button type="submit" class="panel-usuario-eliminar">Eliminar</button>
                             </form>
                             {{-- Add other actions as needed --}}
                         </td>
