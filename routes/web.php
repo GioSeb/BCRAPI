@@ -50,6 +50,8 @@ Route::middleware(['auth', 'can:manage-users']) // Apply middleware here
 
 /* MODIFY TO MATCH BREEZE */
 
+// DOS RUTAS PARA PANEL???
+
 Route::get('/panel', function () {
     // Fetch the users here
     $users = User::with('role') // Eager load roles if needed
@@ -71,6 +73,10 @@ Route::middleware(['auth', 'can:manage-users'])->prefix('admin')->name('admin.')
     Route::get('/panel', [UserController::class, 'index'])->name('panel');
 });
 
-/* Route::get('/panel', [UserController::class, 'index'])
-->middleware(['auth', 'can:manage-users']) // Apply middleware
-->name('panel'); // Give it a name */
+//TO DO auth to create
+Route::get('/create', function (){
+    return view('admin.users.create');
+});
+
+//Create user
+Route::post('/crear/usuario', [UserController::class, 'store']);

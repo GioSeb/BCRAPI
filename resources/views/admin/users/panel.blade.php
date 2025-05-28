@@ -45,9 +45,10 @@
                         <td class="">{{ $user->actividad ?? 'N/A' }}</td>
                         <td class="">{{ $user->cargo ?? 'N/A' }}</td>
                         <td class="">{{ $user->vinculo ?? 'N/A' }}</td>
-                        <td class="">{{ $user->role->name ?? 'Sin Rol' }}</td>
                         <td class="">{{ $user->estado ?? 'N/A' }}</td>
+                        <td class="">{{ $user->role->name ?? 'Sin Rol' }}</td>
                         <td>
+                            {{-- TO DO styles to editar and eliminar --}}
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="panel-usuarios-editar">Editar</a>
 
                             {{-- Form for deleting user --}}

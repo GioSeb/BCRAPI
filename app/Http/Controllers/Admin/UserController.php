@@ -39,8 +39,8 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => 'required|password',
-            'role_id' => 'required|int',
+            /* 'password' => 'required|password', */
+            /* 'role_id' => 'required|int', */
             'actividad' => 'required|string',
             'cargo' => 'required|string',
             'vinculo' => 'required|string',
@@ -48,20 +48,29 @@ class UserController extends Controller
             'localidad' => 'required|string',
             'telefono' => 'required|string',
             'cuit' => 'required|string',
-            'estado' => 'required|string',
+            /* 'estado' => 'required|string', */
         ]);
 
-/*         // 1. Generate a random password
-        $randomPassword = Str::random(12); // Generate a 12-character random string */
+        // 1. Generate a random password
+        $randomPassword = Str::random(12); // Generate a 12-character random string
 
-/*         // 2. Create the user
+        // 2. Create the user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($randomPassword), // IMPORTANT: Always hash passwords!
             'email_verified_at' => null, // Start as not verified
+            'actividad' => $request->actividad,
+            'cargo' => $request->cargo,
+            'vinculo' => $request->vinculo,
+            'domicilio' => $request->domicilio,
+            'localidad' => $request->localidad,
+            'telefono' => $request->telefono,
+            'cuit' => $request->cuit,
+            'role_id' => 1,
+            'estado' => 'Pendiente',
             // 'is_admin' => $request->boolean('is_admin'), // Handle setting admin status if applicable
-        ]); */
+        ]);
 
         // --- Password Handling ---
         // Option A (Recommended): Send a Password Reset Link (User sets their own password)
@@ -69,19 +78,8 @@ class UserController extends Controller
         // $user->sendPasswordResetNotification(app('auth.password.broker')->createToken($user));
         // You might need a custom notification to explain it's the *first* login setup.
 
-        // Option B (Less Secure - As per your initial request): Email the plain password
-        // **WARNING:** Sending plain text passwords via email is a security risk.
-        // If you absolutely must, ensure your email sending is secure (TLS) and inform the user
-        // to change it immediately upon first login.
-        // Mail::raw("Welcome! Your temporary password is: $randomPassword \nPlease change it immediately after logging in.", function ($message) use ($user) {
-        //     $message->to($user->email)
-        //           ->subject('Your New Account Credentials');
-        // });
-        // Consider creating a dedicated Mailable class for better structure.
-
-
         // Redirect after creation
-        return redirect()->route('admin.users.index')->with('success', 'User created successfully. Password details sent (or reset initiated).');
+        return redirect()->route('panel.view')->with('success', 'User created successfully. Password details sent (or reset initiated).');
     }
 
     // Implement edit, update, destroy methods as needed, applying authorization checks.
