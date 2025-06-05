@@ -7,9 +7,6 @@ use App\Http\Controllers\InformeController;
 use App\Http\Controllers\SelectViewController;
 use App\Models\User;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
