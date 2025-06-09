@@ -6,6 +6,7 @@
 {{-- @extends('layouts.app') --}}
 
 {{-- @section('content') --}}
+{{-- TO DO borrar lo siguiente --}}
 <h1>Select Page</h1>
 
 <p>Welcome, {{ Auth::user()->name }}!</p> {{-- Access user directly --}}

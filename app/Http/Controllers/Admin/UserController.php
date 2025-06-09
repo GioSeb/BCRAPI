@@ -1,5 +1,5 @@
 <?php
-
+//TO DO arreglar los recursos
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -23,10 +23,16 @@ class UserController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
+
         $users = User::with('role')      // Eager load roles if needed (as in the view)
         ->latest()          // Order by newest
         ->paginate(15);
-        return view('admin.users.panel', ['users' => $users]);
+        return view('admin.users.panel', ['users' => $users, 'user' => $user]);
+    }
+
+    public function show(User $user){
+        return view('admin.users.show', compact('user')); //TO DO better study
     }
 
     public function create()
@@ -79,7 +85,7 @@ class UserController extends Controller
         // You might need a custom notification to explain it's the *first* login setup.
 
         // Redirect after creation
-        return redirect()->route('panel.view')->with('success', 'User created successfully. Password details sent (or reset initiated).');
+        return redirect()->route('admin.users.index')->with('success', 'User created successfully. Password details sent (or reset initiated).');
     }
 
     // Implement edit, update, destroy methods as needed, applying authorization checks.

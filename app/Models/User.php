@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use app\Models\Role;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable /* TO DO implement MustVerifyEmail */
 {
     use HasFactory, Notifiable;
 
@@ -90,7 +90,7 @@ class User extends Authenticatable implements MustVerifyEmail
         }
          // Check if user is specifically Master (stricter than isAdminOrHigher)
          public function isMasterOnly(): bool // Or just use isMaster() depending on context
-         {
-             return $this->isMaster();
-         }
+        {
+           return $this->isMaster();
+        }
 }

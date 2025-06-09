@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('estado')->unique()->after('cuit');
+            $table->string('estado')->after('cuit');
         });
     }
-
+    //TO DO removed the ->unique because that was not intended. might need to rollback this migration or something
     /**
      * Reverse the migrations.
      */

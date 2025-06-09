@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\SelectViewController;
 use App\Http\Requests\Auth\LoginRequest;
@@ -9,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Gate;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,7 +31,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('select.view');
+        return redirect()->route('select');
     }
 
     /**
@@ -45,4 +47,5 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
 }
