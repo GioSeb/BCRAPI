@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Inicio')
-
+{{-- TO DO if logged in redirect to select --}}
 <body>
     @section('content')
     <x-auth-session-status :status="session('status')" />

@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail; // If sending email
 use Illuminate\Support\Facades\Gate; // If using Gate inside methods directly
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 // Potentially use an Action class or Notification for cleaner email sending
 
 class UserController extends Controller
@@ -18,17 +19,32 @@ class UserController extends Controller
     public function __construct()
     {
         // TO DO Ensure only authenticated users who pass the 'manage-users' gate can access these methods TO DO
-        /* $this->middleware(['auth', 'can:manage-users']); */
+        $this->middleware(['auth', 'can:manage-users']);
     }
 
     public function index()
     {
-        $user = Auth::user();
+        $currentUser = Auth::user();
+            // ---- START DEBUGGING ----
+    // This will print out every single method available on the $currentUser object and stop execution.
+    dd(get_class_methods($currentUser));
+    // ---- END DEBUGGING ----
+        $query = User::with(['role', 'creator']); // Eager load both relationships
 
-        $users = User::with('role')      // Eager load roles if needed (as in the view)
-        ->latest()          // Order by newest
-        ->paginate(15);
-        return view('admin.users.panel', ['users' => $users, 'user' => $user]);
+        // Check if the current user is a Master
+        if ($currentUser->isMaster()) {
+            // Master sees all users. No extra filtering needed.
+            // The query as is will fetch everyone.
+        } else {
+            // If not a Master, they must be an Admin.
+            // Admins only see users they created.
+            $query->where('created_by', $currentUser->id);
+        }
+
+        // Execute the final query and paginate the results
+        $users = $query->latest()->paginate(15);
+
+        return view('admin.users.panel', ['users' => $users, 'user' => $currentUser]);
     }
 
     public function show(User $user){
@@ -57,14 +73,11 @@ class UserController extends Controller
             /* 'estado' => 'required|string', */
         ]);
 
-        // 1. Generate a random password
-        $randomPassword = Str::random(12); // Generate a 12-character random string
-
         // 2. Create the user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($randomPassword), // IMPORTANT: Always hash passwords!
+            'password' => Hash::make($request->password), // IMPORTANT: Always hash passwords!
             'email_verified_at' => null, // Start as not verified
             'actividad' => $request->actividad,
             'cargo' => $request->cargo,
@@ -75,6 +88,7 @@ class UserController extends Controller
             'cuit' => $request->cuit,
             'role_id' => 1,
             'estado' => 'Pendiente',
+            'created_by' => Auth::id(), // Get the ID of the currently logged-in user
             // 'is_admin' => $request->boolean('is_admin'), // Handle setting admin status if applicable
         ]);
 

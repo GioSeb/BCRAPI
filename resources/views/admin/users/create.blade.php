@@ -36,6 +36,9 @@
         <input type="radio" name="vinculo" id="otro" value="Otros">
         <label for="otro">Otros</label>
 
+        <label class="crear-label" for="contraseña">Contraseña</label>
+        <input class="crear-input" type="password" id="contraseña" name="password">
+
 {{--    TO DO     <label for="notificarme">Notificarme a</label>
         <input type="email" name="notificarme" id="notificarme" class="crear-input"> --}}
 

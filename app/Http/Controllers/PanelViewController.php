@@ -25,3 +25,5 @@ class PanelViewController extends Controller
             return view('panel', ['users' => $users, 'user' => $user]);
     }
 }
+
+/* TO DO Note: I noticed you have a PanelViewController and a UserController. Your admin.users route group points to UserController. The logic to fetch and display the list of users belongs in the controller that the route points to, which is UserController@index. You can remove the PanelViewController or repurpose it. */
