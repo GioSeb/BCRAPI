@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Gate; // If using Gate inside methods directly
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Models\Role;
+use Illuminate\Validation\Rule;
 // Potentially use an Action class or Notification for cleaner email sending
 
 class UserController extends Controller
@@ -112,23 +113,26 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $request->validate([
+        // Validation rules for all fields from the form
+        $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
-             // 'is_admin' => ['sometimes', 'boolean']
+            // Ensures the email is unique, but ignores the current user's email
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            // Added validation for the new fields. 'nullable' means they are optional.
+            // Change to 'required' if they must be filled.
+            'actividad' => ['nullable', 'string', 'max:255'],
+            'cargo' => ['nullable', 'string', 'max:255'],
+            'domicilio' => ['nullable', 'string', 'max:255'],
+            'localidad' => ['nullable', 'string', 'max:255'],
+            'telefono' => ['nullable', 'string', 'max:50'],
+            'cuit' => ['nullable', 'string', 'max:20'],
         ]);
 
-        $userData = $request->only(['name', 'email']);
-        // if ($request->has('is_admin')) { // Or however you handle updating admin status
-        //     $userData['is_admin'] = $request->boolean('is_admin');
-        // }
+        // Update the user with the validated data
+        $user->update($validatedData);
 
-        // Do NOT update the password here unless explicitly requested via a separate mechanism
-        // The user should change their own password via the profile page.
-
-        $user->update($userData);
-
-         return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+        // Redirect back to the user list with a success message
+        return redirect()->route('admin.users.index')->with('success', 'Usuario actualizado con éxito.');
     }
 
     public function destroy(User $user)

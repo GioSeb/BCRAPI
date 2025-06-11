@@ -40,9 +40,6 @@ Route::middleware(['auth', 'can:manage-users']) // Apply middleware here
     ->prefix('admin') // This means all URIs start with /admin
     ->name('admin.') // This means all route names start with 'admin.' (e.g., admin.users.index)
     ->group(function () {
-        // This single line registers all standard CRUD routes for 'users'
-        // GET /admin/users      -> UserController@index (named: admin.users.index)
-        // GET /admin/users/{user} -> UserController@show (named: admin.users.show)
         Route::resource('users', UserController::class);
     });
 
@@ -71,6 +68,7 @@ Route::middleware(['auth', 'can:manage-users'])->prefix('admin')->name('admin.')
     Route::get('/panel', [UserController::class, 'index'])->name('panel');
 }); */
 
+// TO DO modify logged user
 
 //Create user
 Route::post('/crear/usuario', [UserController::class, 'store']);
