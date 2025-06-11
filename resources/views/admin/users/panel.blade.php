@@ -29,6 +29,10 @@
                     <th class="">Vínculo</th>
                     <th>Estado</th>
                     <th class="">Rol</th>
+                    {{-- Conditionally show this column ONLY for Master users --}}
+                    @if(Auth::user()->isMaster())
+                        <th>Generado por</th>
+                    @endif
                     <th class="">Acciones</th>
                 </tr>
             </thead>
@@ -47,6 +51,14 @@
                         <td class="">{{ $user->vinculo ?? 'N/A' }}</td>
                         <td class="">{{ $user->estado ?? 'N/A' }}</td>
                         <td class="">{{ $user->role->name ?? 'Sin Rol' }}</td>
+                        {{-- Conditionally show this data cell ONLY for Master users --}}
+                        @if(Auth::user()->isMaster())
+                            <td>
+                                {{-- Use optional() or ?-> to prevent errors if creator is null --}}
+                                {{-- For example, the first user might not have a creator --}}
+                                {{ $user->creator->name ?? 'Sistema' }}
+                            </td>
+                        @endif
                         <td>
                             {{-- TO DO styles to editar and eliminar --}}
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="panel-usuarios-editar">Editar</a>
@@ -70,7 +82,11 @@
         </div>
 
     @else
-        <p class="mt-4 text-gray-600">No se encontraron usuarios.</p>
+            @if(Auth::user()->isMaster())
+                No se encontraron usuarios.
+            @else
+                Aún no has generado ningún usuario.
+            @endif
     @endif
 </div>
 

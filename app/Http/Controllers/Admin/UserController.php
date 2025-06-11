@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail; // If sending email
 use Illuminate\Support\Facades\Gate; // If using Gate inside methods directly
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\Role;
 // Potentially use an Action class or Notification for cleaner email sending
 
 class UserController extends Controller
@@ -25,14 +26,14 @@ class UserController extends Controller
     public function index()
     {
         $currentUser = Auth::user();
-            // ---- START DEBUGGING ----
+/*             // ---- START DEBUGGING ----
     // This will print out every single method available on the $currentUser object and stop execution.
     dd(get_class_methods($currentUser));
-    // ---- END DEBUGGING ----
+    // ---- END DEBUGGING ---- */
         $query = User::with(['role', 'creator']); // Eager load both relationships
 
         // Check if the current user is a Master
-        if ($currentUser->isMaster()) {
+        if ($currentUser->role?->slug === Role::ROLE_MASTER) {
             // Master sees all users. No extra filtering needed.
             // The query as is will fetch everyone.
         } else {

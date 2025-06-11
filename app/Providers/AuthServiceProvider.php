@@ -29,5 +29,11 @@ class AuthServiceProvider extends ServiceProvider
             // return $user->is_admin; // If using is_admin flag
             return $user->hasRole(Role::ROLE_ADMIN) || $user->hasRole(Role::ROLE_MASTER);
         });
+
+        Gate::define('be-a-master', function (User $user) {
+            // This gate just checks if the user's role is master.
+            // It uses the same internal logic but is called via the auth system.
+            return $user->hasRole(Role::ROLE_MASTER);
+        });
     }
 }
