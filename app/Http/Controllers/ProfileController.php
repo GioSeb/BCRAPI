@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\Hash; // Import the Hash facade
-use App\Models\User; // Ensure User model is imported if you're fetching by ID or using route model binding
 
 class ProfileController extends Controller
 {
@@ -28,28 +26,15 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $user = $request->user();
+        $request->user()->fill($request->validated());
 
-        $validatedData = $request->validated();
-
-        if (isset($validatedData['password']) && !empty($validatedData['password'])) {
-            $user->password = Hash::make($validatedData['password']);
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
         }
 
-        unset($validatedData['password']);
-        unset($validatedData['password_confirmation']);
+        $request->user()->save();
 
-        $user->fill($validatedData);
-
-/*         // Check if the email was changed; if so, reset email_verified_at
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
- */
-
-        $user->save();
-
-        return Redirect::route('select')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
     /**

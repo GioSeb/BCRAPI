@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Models\Role;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 // Potentially use an Action class or Notification for cleaner email sending
 
 class UserController extends Controller
@@ -60,16 +59,8 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => [
-                'sometimes', // Make password optional for profile updates
-                'required',  // If 'password' is present, it must be required
-                'string',
-                Password::min(8) // Minimum 8 characters
-                    ->mixedCase() // At least one uppercase and one lowercase letter
-                    ->numbers() // At least one number
-                    ->symbols(), // At least one symbol (good practice for strong passwords)
-                'confirmed', // Ensures 'password' matches 'password_confirmation' field
-            ],
+            /* 'password' => 'required|password', */
+            /* 'role_id' => 'required|int', */
             'actividad' => 'required|string',
             'cargo' => 'required|string',
             'vinculo' => 'required|string',
@@ -125,12 +116,12 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             // Added validation for the new fields. 'nullable' means they are optional.
             // Change to 'required' if they must be filled.
-            'actividad' => ['required', 'string', 'max:255'],
-            'cargo' => ['required', 'string', 'max:255'],
-            'domicilio' => ['required', 'string', 'max:255'],
-            'localidad' => ['required', 'string', 'max:255'],
-            'telefono' => ['required', 'string', 'max:50'],
-            'cuit' => ['required', 'string', 'max:20'],
+            'actividad' => ['nullable', 'string', 'max:255'],
+            'cargo' => ['nullable', 'string', 'max:255'],
+            'domicilio' => ['nullable', 'string', 'max:255'],
+            'localidad' => ['nullable', 'string', 'max:255'],
+            'telefono' => ['nullable', 'string', 'max:50'],
+            'cuit' => ['nullable', 'string', 'max:20'],
         ]);
 
         // Update the user with the validated data
