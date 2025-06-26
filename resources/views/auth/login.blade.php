@@ -5,6 +5,9 @@
 @section('content')
 
     <!-- Session Status -->
+    <div class="text-4xl font-bold text-blue-700">
+    Hello Tailwind!
+    </div>
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
