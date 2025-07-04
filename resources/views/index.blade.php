@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('title', 'Inicio')
-
-@section('content')
+{{-- TO DO if logged in redirect to select --}}
+<body>
+    @section('content')
     <x-auth-session-status :status="session('status')" />
     <div class="inicio">
         <div class="inicio-info">
@@ -73,5 +74,6 @@
         </div>
     </div>
     {{-- TO DO informativo --}}
-@endsection
+    @endsection
 
+</body>
