@@ -28,10 +28,6 @@ class UserController extends Controller
     public function index()
     {
         $currentUser = Auth::user();
-/*             // ---- START DEBUGGING ----
-    // This will print out every single method available on the $currentUser object and stop execution.
-    dd(get_class_methods($currentUser));
-    // ---- END DEBUGGING ---- */
         $query = User::with(['role', 'creator']); // Eager load both relationships
 
         // Check if the current user is a Master
