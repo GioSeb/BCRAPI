@@ -1,9 +1,9 @@
 /* @import 'tailwindcss'; */
 /* @import 'styles3.css'; */
 
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
 
 @import './styles3.css';
