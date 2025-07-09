@@ -66,8 +66,7 @@ class UserController extends Controller
                 'string',
                 Password::min(8) // Minimum 8 characters
                     ->mixedCase() // At least one uppercase and one lowercase letter
-                    ->numbers() // At least one number
-                    ->symbols(), // At least one symbol (good practice for strong passwords)
+                    ->numbers(), // At least one number
                 'confirmed', // Ensures 'password' matches 'password_confirmation' field
             ],
             'actividad' => 'required|string',
@@ -131,6 +130,19 @@ class UserController extends Controller
             'localidad' => ['required', 'string', 'max:255'],
             'telefono' => ['required', 'string', 'max:50'],
             'cuit' => ['required', 'string', 'max:20'],
+        ],
+         [
+            // Custom messages for validation rules
+            'name.required' => 'El nombre es obligatorio.',
+            'email.required' => 'El email es obligatorio.',
+            'email.email' => 'Por favor, ingrese un correo electrónico válido.',
+            'email.unique' => 'Este correo electrónico ya está en uso.',
+            'actividad.required' => 'El campo actividad es obligatorio.',
+            'cargo.required' => 'El campo cargo es obligatorio.',
+            'domicilio.required' => 'El campo domicilio es obligatorio.',
+            'localidad.required' => 'El campo localidad es obligatorio.',
+            'telefono.required' => 'El campo teléfono es obligatorio.',
+            'cuit.required' => 'El campo CUIT es obligatorio.',
         ]);
 
         // Update the user with the validated data
@@ -143,9 +155,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
          // Optional: Add checks to prevent deleting the last admin or oneself TO DO
-/*          if ($user->id === auth()->id()) {
+         if ($user->id === Auth::id()) {
               return back()->with('error', 'You cannot delete yourself.');
-         } */
+         };
          // Add more checks as needed
 
          $user->delete();
