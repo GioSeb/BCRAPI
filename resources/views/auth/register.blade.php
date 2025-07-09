@@ -1,3 +1,8 @@
+@extends('layouts.app')
+@section('title', 'Inicio')
+
+
+@section('content')
 {{-- <x-guest-layout> --}}
     <form method="POST" action="{{ route('register') }}">
         @csrf
@@ -108,5 +113,5 @@
         </div>
         {{-- TO DO add role --}}
     </form>
-
+@endsection
 {{-- </x-guest-layout> --}}
