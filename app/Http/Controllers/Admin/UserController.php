@@ -28,7 +28,7 @@ class UserController extends Controller
     public function index()
     {
         $currentUser = Auth::user();
-        $query = User::with(['role', 'creator']); // Eager load both relationships
+        $query = User::with(['role']); // Eager load both relationships
 
         // Check if the current user is a Master
         if ($currentUser->role?->slug === Role::ROLE_MASTER) {

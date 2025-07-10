@@ -8,16 +8,15 @@ use App\Http\Controllers\NuevoInformeController;
 use App\Http\Controllers\PanelViewController;
 use App\Http\Controllers\SelectViewController;
 use App\Models\User;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\NewPasswordController;
 
 
 
 Route::get('/', function () {
     return view('index');
 });
-
-/* Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard'); */
 
 // AUTH = 1 2 3
 
@@ -32,6 +31,9 @@ Route::middleware('auth')->group(function () {
             return view('informe', [InformeController::class, 'fetchInforme']);
         })->name('informe');
 
+    Route::get('/login', function () {
+        return view('select');
+    });
 });
 
 // AUTH = 2 3
@@ -42,6 +44,18 @@ Route::middleware(['auth', 'can:manage-users']) // Apply middleware here
     ->group(function () {
         Route::resource('users', UserController::class);
     });
+
+// GUESTS TO DO check
+
+Route::middleware('guest')->group(function () {
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
+    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
+    Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store');
+});
 
 /* MODIFY TO MATCH BREEZE */
 
