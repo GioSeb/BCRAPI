@@ -1,5 +1,5 @@
 @extends('layouts.app')  <!-- Extend your base layout -->
-@section('title', 'Historial')
+@section('title', 'Informe')
 
 @section('content')
 {{-- <div class="w-screen">

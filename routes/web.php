@@ -27,9 +27,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/select', [SelectViewController::class, 'index'])->name('select');
     Route::get('/nuevo-informe', [NuevoInformeController::class, 'index'])->name('nuevo-informe');
-    Route::get('/informe', function (){
-            return view('informe', [InformeController::class, 'fetchInforme']);
-        })->name('informe');
+    Route::get('/informe', [InformeController::class, 'fetchInforme']);
 
     Route::get('/login', function () {
         return view('select');
