@@ -146,12 +146,12 @@
 
         {{-- TO DO change style to not be the same as central de deudores --}}
         @foreach ( $historial['results']['entidades'] as $entidadHistorial)
-            <div class="entidad">
-                <div class="header" onclick="toggleEntidad(this)">
+            <div class="entidad"  x-data="{ open: false }">
+                <div class="header"  @click="open = !open">
                     <h2>{{ $entidadHistorial['entidad'] }}</h2>
-                    <span class="toggle-symbol">+</span>
+                    <span class="toggle-symbol" x-text="open ? '-' : '+'"></span>
                 </div>
-                    <table class="historialTable">
+                    <table class="historialTable" x-show="open">
                         <thead class="historialHead">
                             <tr>
                                 <th>Período</th>

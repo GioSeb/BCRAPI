@@ -977,11 +977,11 @@ a.caldisabled {
     height: fit-content;
 }
 
-.content {
-    display: none; /* Initially hidden */
+/* .content {
+    display: none;
     padding: 10px;
     background-color: #fff;
-}
+} */
 
 thead.content {
     display: none; /* Initially hidden */
