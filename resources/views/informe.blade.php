@@ -189,29 +189,55 @@
 
         {{-- cheques rechazados --}}
 
-        <table class="scoring_main" style="border: solid; border-color: #999999;">
+        <table class="scoring_main" style="border: solid; border-color: #999999; margin-top: 20px;">
             <tr>
                 <td colspan="4" class="subtitle"><img src="{{asset('img/informe/separator.png')}}" style="border: 0; width: 24px; height: 24px; align-self: left;" /> Cheques Rechazados</td>
             </tr>
             <tr>
                 <td colspan="4" class="comments" style="margin-block-end: 10px; margin-block-start: 10px;">
-                    <p>Estas consultas se realizan sobre la Central de cheques rechazados, conformada por datos
-                        recibidos diariamente de los bancos, que se publican sin alteraciones de acuerdo con los plazos
-                        dispuestos en el inciso 4 del artículo 26 de la Ley 25.326 de Protección de los Datos Personales
-                        y con el criterio establecido en el punto 1.3. de la Sección 1 del Texto ordenado Centrales de
-                        Información.</p>
+                    <p>Estas consultas se realizan sobre la Central de cheques rechazados, conformada por datos recibidos diariamente de los bancos, que se publican sin alteraciones de acuerdo con los plazos dispuestos en el inciso 4 del artículo 26 de la Ley 25.326 de Protección de los Datos Personales y con el criterio establecido en el punto 1.3. de la Sección 1 del Texto ordenado Centrales de Información.</p>
                 </td>
             </tr>
-            {{-- TO DO find refused checks to see the table --}}
-            <tr>
-                <td>
-                    {{-- TO DO style --}}
-                    {{-- sin rechazos --}}
-                    <p class="informe_clean"><img src="{{asset('img/informe/clean.png')}}" alt="limpio">No registra cheques rechazados.</p>
-                </td>
-            </tr>
-
         </table>
+
+        @if ($rechazados['status'] === 200 && !empty($rechazados['results']['causales']))
+            <table class="deudorTable" style="margin-top: 10px;">
+                <thead>
+                    <tr>
+                        <th>Entidad</th>
+                        <th>Nro. Cheque</th>
+                        <th>Monto</th>
+                        <th>Fecha Rechazo</th>
+                        <th>Causal</th>
+                        <th>Fecha Pago</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($rechazados['results']['causales'] as $causal)
+                        @foreach ($causal['entidades'] as $entidad)
+                            @foreach ($entidad['detalle'] as $detalleCheque)
+                                <tr>
+                                    <td>{{ $entidad['nombreEntidad'] ?? 'No disponible' }}</td>
+                                    <td>{{ $detalleCheque['nroCheque'] }}</td>
+                                    <td>${{ number_format($detalleCheque['monto'], 2, ',', '.') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($detalleCheque['fechaRechazo'])->format('d/m/Y') }}</td>
+                                    <td>{{ $causal['causal'] }}</td>
+                                    <td>{{ $detalleCheque['fechaPago'] ? \Carbon\Carbon::parse($detalleCheque['fechaPago'])->format('d/m/Y') : '-' }}</td>
+                                </tr>
+                            @endforeach
+                        @endforeach
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <table class="scoring_main" style="border: solid; border-color: #999999; margin-top: 10px;">
+                 <tr>
+                    <td>
+                        <p class="informe_clean" style="padding: 10px;"><img src="{{asset('img/informe/clean.png')}}" alt="limpio" style="width: 20px; height: 20px; display: inline-block; margin-right: 8px;">No registra cheques rechazados.</p>
+                    </td>
+                </tr>
+            </table>
+        @endif
 
     </div>
 @endsection
