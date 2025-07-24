@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use function App\Helpers\organizarPorEntidad;
+use App\Models\History;
 
 /* TO DO make call to ddbb to fetch name from cuit */
 /* TO DO manage errors better */
@@ -126,6 +127,17 @@ class InformeController extends Controller
         //return both to the view
         // Check if both API calls returned data
         if ($historial && $deudor && $rechazados) {
+                        // --- 2. Lógica para guardar la consulta ---
+            // Solo guardamos si la consulta a la API fue exitosa
+            try {
+                History::create([
+                    'user_id' => $request->user()->id, // O Auth::id()
+                    'cuit'    => $cuit,
+                ]);
+            } catch (\Exception $e) {
+                // Opcional: registrar el error si la inserción en la BBDD falla
+                //Log::error('Failed to save consultation: ' . $e->getMessage());
+            }
             return view('informe', [
                 'historial' => $historial,
                 'deudor' => $deudor,
