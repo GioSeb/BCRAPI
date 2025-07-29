@@ -34,18 +34,7 @@ class User extends Authenticatable
         'cuit',
         'estado',
     ];
-    // Relationship to get the user who CREATED this user
-    public function creator(): BelongsTo
-    {
-        // This links the 'created_by' column to the 'id' of another User model
-        return $this->belongsTo(User::class, 'created_by');
-    }
 
-    // Relationship to get all users CREATED BY this user
-    public function createdUsers(): HasMany
-    {
-        return $this->hasMany(User::class, 'created_by');
-    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -69,7 +58,22 @@ class User extends Authenticatable
         ];
     }
 
-    // Relationship: A user belongs to one role
+    //======================================================================
+    // RELATIONSHIPS
+    //======================================================================
+
+    // Relationship to get the user who CREATED this user
+    public function creator(): BelongsTo
+    {
+        // This links the 'created_by' column to the 'id' of another User model
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    // Relationship to get all users CREATED BY this user
+    public function createdUsers(): HasMany
+    {
+        return $this->hasMany(User::class, 'created_by');
+    }
     public function role(): BelongsTo
     {
         // Eager load the role by default to avoid N+1 issues in checks
@@ -79,7 +83,20 @@ class User extends Authenticatable
         ]);
     }
 
-    // Helper methods for role checks
+    /**
+     * Get all of the history records for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function history(): HasMany
+    {
+        return $this->hasMany(History::class);
+    }
+
+
+    //======================================================================
+    // HELPER METHODS
+    //======================================================================
     public function hasRole(string $roleSlug): bool
     {
         // Ensure role relationship is loaded before accessing slug

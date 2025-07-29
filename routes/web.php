@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\HistoryController;
 
 
 
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/login', function () {
         return view('select');
     });
+    Route::get('/historial', [HistoryController::class, 'index'])->name('historial');
 });
 
 // AUTH = 2 3

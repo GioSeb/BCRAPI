@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use function App\Helpers\organizarPorEntidad;
 use App\Models\History;
+use Illuminate\Support\Facades\Log;
 
 /* TO DO make call to ddbb to fetch name from cuit */
 /* TO DO manage errors better */
@@ -136,7 +137,7 @@ class InformeController extends Controller
                 ]);
             } catch (\Exception $e) {
                 // Opcional: registrar el error si la inserción en la BBDD falla
-                //Log::error('Failed to save consultation: ' . $e->getMessage());
+                Log::error('Falló al guardar la consulta en el historial: ' . $e->getMessage());
             }
             return view('informe', [
                 'historial' => $historial,
