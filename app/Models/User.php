@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Seguimiento;
 
 class User extends Authenticatable
 {
@@ -81,6 +82,12 @@ class User extends Authenticatable
             'name' => 'User', // Provide default if role_id is null
             'slug' => Role::ROLE_USER,
         ]);
+    }
+
+    //Seguimiento logic
+    public function seguimientos(): HasMany
+    {
+        return $this->hasMany(Seguimiento::class);
     }
 
     /**

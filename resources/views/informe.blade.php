@@ -26,6 +26,46 @@
 
     {{-- INICIO INFORME --}}
     {{-- TO DO include bcra legislation --}}
+
+            {{-- ====================================================================== --}}
+            {{--                        SEGUIMIENTO BUTTON SECTION                        --}}
+            {{-- ====================================================================== --}}
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100 flex justify-between items-center">
+                    <span class="font-semibold">
+                        Seguimiento de este CUIT
+                    </span>
+
+                    @if ($isFollowing)
+                        {{-- UNFLLOW BUTTON --}}
+                        <form action="{{ route('seguimientos.destroy', $historial['results']['identificacion']) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                Dejar de Seguir
+                            </button>
+                        </form>
+                    @else
+                        {{-- FOLLOW BUTTON --}}
+                        <form action="{{ route('seguimientos.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="cuit" value="{{ $historial['results']['identificacion'] }}">
+                            <input type="hidden" name="denominacion" value="{{ $historial['results']['denominacion'] }}">
+
+                            {{-- Safely encode all entity situations from the deudor data as a JSON string --}}
+                            @php
+                                $allSituations = $deudor['results']['periodos'][0]['entidades'] ?? [];
+                            @endphp
+                            <input type="hidden" name="situations" value="{{ json_encode($allSituations) }}">
+
+                            <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Seguir CUIT
+                            </button>
+                        </form>
+                    @endif
+                </div>
+            </div>
+
     <div class="scoring">
         <br>
         <h3 class="begin_report">Inicio del informe</h3>
@@ -49,7 +89,16 @@
         </table>
 
         {{-- Central de deudores --}}
+        {{-- TO DO sacar dias de atraso ya que siempre devuelve 0 DiasAtraso
 
+Según lo determinado en el punto 8. del apartado B del TO "Régimen Informativo
+Contable Mensual - Deudores del Sistema Financiero”. Si el deudor perteneciente a
+APIs Públicas – Central de Deudores | Manual para el Desarrollador | BCRA | 6
+la cartera para consumo o vivienda en situación distinta a la normal se encuentra
+clasificado por refinanciaciones, recategorización obligatoria, situación jurídica -
+concordatos judiciales o extrajudiciales, concurso preventivo, gestión judicial o
+quiebra- o irrecuperable por disposición técnica, se informarán los días de atraso. El
+valor (0) indica "No Aplicable". --}}
         <h2>Central de deudores</h2>
         <ul>
             <li>Entidad: Entidad bancaria acreedora.</li>
@@ -82,7 +131,6 @@
                 </td>
             </tr>
         </table>
-
 
         @if ($deudor['status'] === 200)
             <table class="deudorTable">

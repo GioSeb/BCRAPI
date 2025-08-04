@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Http;
 use function App\Helpers\organizarPorEntidad;
 use App\Models\History;
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 /* TO DO make call to ddbb to fetch name from cuit */
 /* TO DO manage errors better */
@@ -119,6 +121,9 @@ class InformeController extends Controller
 
         // Extract CUIT from request
         $cuit = $request->input('cuit');
+        // Check if the user is seguido
+
+        $isFollowing = Auth::user()->seguimientos()->where('cuit', $cuit)->exists();
 
         // Fetch data from both API calls
         $historial = $this->fetchHistorial($cuit);
@@ -142,7 +147,8 @@ class InformeController extends Controller
             return view('informe', [
                 'historial' => $historial,
                 'deudor' => $deudor,
-                'rechazados' => $rechazados
+                'rechazados' => $rechazados,
+                'isFollowing' => $isFollowing,
             ]);
         }
         // If any API call failed, redirect back with a general error message

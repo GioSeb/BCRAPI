@@ -12,7 +12,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\HistoryController;
-
+use App\Http\Controllers\SeguimientoController;
 
 
 Route::get('/', function () {
@@ -34,6 +34,10 @@ Route::middleware('auth')->group(function () {
         return view('select');
     });
     Route::get('/historial', [HistoryController::class, 'index'])->name('historial');
+
+    Route::get('/seguimientos', [SeguimientoController::class, 'index'])->name('seguimientos.index');
+    Route::post('/seguimientos', [SeguimientoController::class, 'store'])->name('seguimientos.store');
+    Route::delete('/seguimientos/{cuit}', [SeguimientoController::class, 'destroy'])->name('seguimientos.destroy');
 });
 
 // AUTH = 2 3
