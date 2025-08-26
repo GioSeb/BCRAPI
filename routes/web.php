@@ -6,11 +6,11 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\InformeController;
 use App\Http\Controllers\NuevoInformeController;
 use App\Http\Controllers\PanelViewController;
-use App\Http\Controllers\SelectViewController;
 use App\Models\User;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\DashboardViewController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\SeguimientoController;
 
@@ -26,12 +26,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/select', [SelectViewController::class, 'index'])->name('select');
+    Route::get('/dashboard', [DashboardViewController::class, 'index'])->name('dashboard');
     Route::get('/nuevo-informe', [NuevoInformeController::class, 'index'])->name('nuevo-informe');
     Route::get('/informe', [InformeController::class, 'fetchInforme'])->name('informe');
 
     Route::get('/login', function () {
-        return view('select');
+        return view('dashboard');
     });
     Route::get('/historial', [HistoryController::class, 'index'])->name('historial');
 
@@ -46,7 +46,7 @@ Route::middleware(['auth', 'can:manage-users']) // Apply middleware here
     ->prefix('admin') // This means all URIs start with /admin
     ->name('admin.') // This means all route names start with 'admin.' (e.g., admin.users.index)
     ->group(function () {
-        Route::resource('users', UserController::class);
+        Route::resource('usuarios', UserController::class);
     });
 
 // GUESTS TO DO check

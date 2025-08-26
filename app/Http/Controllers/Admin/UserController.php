@@ -43,16 +43,16 @@ class UserController extends Controller
         // Execute the final query and paginate the results
         $users = $query->latest()->paginate(15);
 
-        return view('admin.users.panel', ['users' => $users, 'user' => $currentUser]);
+        return view('admin.usuarios.panel', ['users' => $users, 'user' => $currentUser]);
     }
 
     public function show(User $user){
-        return view('admin.users.show', compact('user')); //TO DO better study
+        return view('admin.usuarios.show', compact('user')); //TO DO better study
     }
 
     public function create()
     {
-        return view('admin.users.create');
+        return view('admin.usuarios.create');
     }
 
     public function store(Request $request)
@@ -105,14 +105,14 @@ class UserController extends Controller
         // You might need a custom notification to explain it's the *first* login setup.
 
         // Redirect after creation
-        return redirect()->route('admin.users.index')->with('success', 'User created successfully. Password details sent (or reset initiated).');
+        return redirect()->route('admin.usuarios.index')->with('success', 'User created successfully. Password details sent (or reset initiated).');
     }
 
     // Implement edit, update, destroy methods as needed, applying authorization checks.
     // Example: update method
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        return view('admin.usuarios.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
@@ -149,7 +149,7 @@ class UserController extends Controller
         $user->update($validatedData);
 
         // Redirect back to the user list with a success message
-        return redirect()->route('admin.users.index')->with('success', 'Usuario actualizado con éxito.');
+        return redirect()->route('admin.usuarios.index')->with('success', 'Usuario actualizado con éxito.');
     }
 
     public function destroy(User $user)
@@ -161,6 +161,6 @@ class UserController extends Controller
          // Add more checks as needed
 
          $user->delete();
-         return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
+         return redirect()->route('admin.usuarios.index')->with('success', 'User deleted successfully.');
     }
 }

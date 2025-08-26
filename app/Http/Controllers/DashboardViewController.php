@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // Import Auth facade
 use Illuminate\View\View;
 
-class SelectViewController extends Controller
+class DashboardViewController extends Controller
 {
     /**
      * Show the select view.
@@ -15,6 +15,6 @@ class SelectViewController extends Controller
     {
         $user = Auth::user(); // Get the currently authenticated user
         // You can pass the user or specific data to the view if needed
-        return view('select', ['user' => $user]);
+        return view('dashboard', ['user' => $user]);
     }
 }

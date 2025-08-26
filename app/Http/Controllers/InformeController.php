@@ -32,17 +32,30 @@ class InformeController extends Controller
         return null;
     }
 
+    /**
+     * Fetches debtor information from the API.
+     * Handles 404 as a valid, non-critical response.
+     * @param string $cuit
+     * @return array|null
+     */
     public function fetchDeudor($cuit) {
-        // API call TO DO resolve the withoutVerifying
+        // API call
         $response = Http::withoutVerifying()->get("https://api.bcra.gob.ar/CentralDeDeudores/v1.0/Deudas/{$cuit}");
 
-        // check succesfull
+        // On success, add a status key for consistency and return the data.
         if ($response->ok()) {
-            $deudor = $response;
-            return $deudor->json();
+            $data = $response->json();
+            $data['status'] = 200; // Add status for easier handling in the view
+            return $data;
         }
 
-        // handle errors
+        // Specifically handle the 404 case: CUIT not found.
+        // This is not a critical failure; it just means there's no data.
+        if ($response->status() === 404) {
+            return ['status' => 404, 'errorMessages' => 'No se encontraron deudas para este CUIT en la Central de Deudores.'];
+        }
+
+        // For any other error (500, timeout, etc.), return null to stop the report.
         return null;
     }
 
@@ -104,7 +117,6 @@ class InformeController extends Controller
         }
 
         // The API returns 404 if there are no rejected checks, which is a valid case.
-        // We can return an empty array to signify no results. TO DO que?
         if ($response->status() === 404) {
             return ['results' => [], 'status' => 404, 'errorMessages' => 'No se encontraron cheques rechazados para este CUIT'];
         }
@@ -121,29 +133,28 @@ class InformeController extends Controller
 
         // Extract CUIT from request
         $cuit = $request->input('cuit');
-        // Check if the user is seguido
-
         $isFollowing = Auth::user()->seguimientos()->where('cuit', $cuit)->exists();
 
-        // Fetch data from both API calls
+        // Fetch data from API calls
         $historial = $this->fetchHistorial($cuit);
         $deudor = $this->fetchDeudor($cuit);
-        $rechazados = $this->fetchChequesRechazados(($cuit));
+        $rechazados = $this->fetchChequesRechazados($cuit);
 
-        //return both to the view
-        // Check if both API calls returned data
+        // Check for critical failures.
+        // The report can be generated if 'historial' and 'rechazados' are successful,
+        // and 'deudor' is either successful (200) or not found (404).
+        // A null value indicates a critical failure in one of the calls.
         if ($historial && $deudor && $rechazados) {
-                        // --- 2. Lógica para guardar la consulta ---
-            // Solo guardamos si la consulta a la API fue exitosa
+            // --- Logic to save the query ---
             try {
                 History::create([
-                    'user_id' => $request->user()->id, // O Auth::id()
+                    'user_id' => $request->user()->id,
                     'cuit'    => $cuit,
                 ]);
             } catch (\Exception $e) {
-                // Opcional: registrar el error si la inserción en la BBDD falla
-                Log::error('Falló al guardar la consulta en el historial: ' . $e->getMessage());
+                Log::error('Failed to save query to history: ' . $e->getMessage());
             }
+
             return view('informe', [
                 'historial' => $historial,
                 'deudor' => $deudor,
@@ -151,7 +162,9 @@ class InformeController extends Controller
                 'isFollowing' => $isFollowing,
             ]);
         }
-        // If any API call failed, redirect back with a general error message
+
+        // If any critical API call failed, redirect back with a general error message.
         return back()->withErrors(['error' => 'No se pudieron obtener los datos de la API. Por favor, intente de nuevo más tarde.']);
     }
 }
+

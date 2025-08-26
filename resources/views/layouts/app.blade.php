@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,9 +17,13 @@
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     </head>
-    <body>
+    <body class="flex flex-col min-h-screen">
         @include('layouts.header')
-        @yield('content')
+
+        <main class="flex-grow bg-gray-900 text-white h-full">
+            @yield('content')
+        </main>
+
         @include('layouts.footer')
     </body>
 </html>

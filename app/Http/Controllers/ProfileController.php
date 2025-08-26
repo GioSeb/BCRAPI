@@ -49,7 +49,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('select')->with('status', 'profile-updated');
+        return Redirect::route('dashboard')->with('status', 'profile-updated');
     }
 
     /**

@@ -127,7 +127,7 @@
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
-            <a href="{{ route('select') }}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 </div>

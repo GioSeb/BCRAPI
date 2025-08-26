@@ -1,68 +1,91 @@
 @extends('layouts.app')
-@section('title', 'Inicio')
-
+@section('title', 'Inicio de Sesión')
 
 @section('content')
-
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    {{-- Check if there's an 'error' flash message in the session --}}
-    @if (session('error'))
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <strong class="font-bold">Error!</strong>
-            <span class="block sm:inline">{{ session('error') }}</span>
-            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" onclick="this.parentNode.parentNode.style.display = 'none';">
-                    <title>Close</title>
-                    <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
-                </svg>
-            </span>
-        </div>
-    @endif
-
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+<div class="min-h-screen flex items-center justify-center bg-gray-900 px-4 py-12 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 p-10 bg-gray-800 rounded-2xl shadow-xl border border-gray-700">
+        <div class="text-center">
+            {{-- Logo para el formulario de login, similar al del dashboard --}}
+            <img class="h-16 w-auto mx-auto mb-4" src="{{ asset('img/logo-light.svg') }}" alt="Logo Nexor">
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
+                Inicia sesión en tu cuenta
+            </h2>
+            <p class="mt-2 text-center text-sm text-gray-400">
+                O
+                <a href="{{ route('register') }}" class="font-medium text-indigo-500 hover:text-indigo-400">
+                    contáctanos para una nueva cuenta
                 </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            </p>
         </div>
-    </form>
-@endsection
 
-{{-- TO DO fix styles and create a design --}}
+        {{-- Mensaje de estado de sesión (ej. contraseña restablecida) --}}
+        <x-auth-session-status class="mb-4 text-green-400 text-center" :status="session('status')" />
+
+        {{-- Mensaje de error general (ej. credenciales inválidas) --}}
+        @if (session('error'))
+            <div class="bg-red-900 border border-red-700 text-red-300 px-4 py-3 rounded-md relative text-center" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">{{ session('error') }}</span>
+            </div>
+        @endif
+
+        <form class="mt-8 space-y-6" method="POST" action="{{ route('login') }}">
+            @csrf
+
+            {{-- Campo de Email --}}
+            <div>
+                <x-input-label for="email" value="{{ __('Email') }}" class="text-gray-300" />
+                <x-text-input id="email" class="block w-full px-4 py-2 mt-1 bg-gray-700 border-gray-600 rounded-md text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm"
+                                type="email"
+                                name="email"
+                                :value="old('email')"
+                                required
+                                autofocus
+                                autocomplete="username" />
+                <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-400" />
+            </div>
+
+            {{-- Campo de Contraseña --}}
+            <div class="mt-4">
+                <x-input-label for="password" value="{{ __('Password') }}" class="text-gray-300" />
+                <x-text-input id="password" class="block w-full px-4 py-2 mt-1 bg-gray-700 border-gray-600 rounded-md text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 shadow-sm"
+                                type="password"
+                                name="password"
+                                required
+                                autocomplete="current-password" />
+                <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-400" />
+            </div>
+
+            {{-- Recordarme y Olvidé mi contraseña --}}
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <input id="remember_me" name="remember" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-600 rounded bg-gray-700">
+                    <label for="remember_me" class="ml-2 block text-sm text-gray-300">
+                        {{ __('Recordarme') }}
+                    </label>
+                </div>
+
+                @if (Route::has('password.request'))
+                    <div class="text-sm">
+                        <a href="{{ route('password.request') }}" class="font-medium text-indigo-500 hover:text-indigo-400">
+                            {{ __('¿Olvidaste tu contraseña?') }}
+                        </a>
+                    </div>
+                @endif
+            </div>
+
+            {{-- Botón de Iniciar Sesión --}}
+            <div>
+                <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                    <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                        <svg class="h-5 w-5 text-indigo-300 group-hover:text-indigo-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                    {{ __('Iniciar sesión') }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection
