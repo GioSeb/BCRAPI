@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\DashboardViewController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\SectorChequesController;
 use App\Http\Controllers\SeguimientoController;
 
 
@@ -38,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/seguimientos', [SeguimientoController::class, 'index'])->name('seguimientos.index');
     Route::post('/seguimientos', [SeguimientoController::class, 'store'])->name('seguimientos.store');
     Route::delete('/seguimientos/{cuit}', [SeguimientoController::class, 'destroy'])->name('seguimientos.destroy');
+
+    Route::get('/sector-cheques', [SectorChequesController::class, 'index'])->name('sector-cheques');
 });
 
 // AUTH = 2 3

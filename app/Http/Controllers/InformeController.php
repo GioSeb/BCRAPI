@@ -55,7 +55,7 @@ class InformeController extends Controller
             return ['status' => 404, 'errorMessages' => 'No se encontraron deudas para este CUIT en la Central de Deudores.'];
         }
 
-        // For any other error (500, timeout, etc.), return null to stop the report.
+        // For any other error (500, timeout, etc.), return null to stop the report.  TO DO error
         return null;
     }
 
