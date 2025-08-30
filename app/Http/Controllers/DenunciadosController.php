@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use function App\Helpers\organizarPorEntidad;
-use App\Models\History;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\SectorChequesController as SectorChequesController;
+
 class DenunciadosController extends Controller
 {
     public function fetchDenunciados($entidad, $cheque){
-        $response = Http::withoutVerifying()->get("api.bcra.gob.ar/cheques/v1.0/denunciados/{$entidad}/{$cheque}");
+        $response = Http::withoutVerifying()->get("https://api.bcra.gob.ar/cheques/v1.0/denunciados/{$entidad}/{$cheque}");
 
         if ($response->ok()) {
             $data = $response->json();
@@ -25,30 +25,29 @@ class DenunciadosController extends Controller
             return ['status' => 404, 'errorMessages' => 'El cheque no se encuentra denunciado.'];
         }
 
-        return null;
+        return $response->json();
     }
 
 
-    public function printDenunciado(Request $request){
+    public function show(Request $request){
         $request->validate([
-            'cheque' => 'required | int'
+            'cheque_numero' => 'required | int',
+            'entidad' => 'required'
         ]);
 
-        $cheque = $request->input('cheque');
         $entidad = $request->input('entidad');
+        $cheque = $request->input('cheque_numero');
 
         $denunciado = $this->fetchDenunciados($entidad, $cheque);
+        /* TO DO add error */
 
-        if($bancos && $denunciado){
-            $nombresEntidades = $bancos['results']->each(function (){
-                return $nombresEntidades['denominacion'];
-            });
-                # code...
+        if (isset($denunciado['errorMessages'])) {
+            $errorMessage = $denunciado['errorMessages'];
+            return back()->withErrors(['error' => $errorMessage]);
         }
-
-            return view('denunciado', [
-
-            ])
-        }
+        return view('denunciados', [
+            'denunciado' => $denunciado,
+        ]);
     }
 }
+

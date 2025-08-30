@@ -24,7 +24,7 @@
             </a>
 
             {{-- Service Card: Sector de Cheques (Example) --}}
-            <a href="#" class="group bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+            <a href="{{ route('sector-cheques') }}" class="group bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
                 <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-600 mb-6 group-hover:bg-green-500 transition-colors">
                      <img src="{{ asset('img/dashboard/cheque.png') }}" alt="Sector de Cheques Icon" class="h-8 w-8">
                 </div>

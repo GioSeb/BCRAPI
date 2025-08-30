@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\DashboardViewController;
+use App\Http\Controllers\DenunciadosController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\SectorChequesController;
 use App\Http\Controllers\SeguimientoController;
@@ -41,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/seguimientos/{cuit}', [SeguimientoController::class, 'destroy'])->name('seguimientos.destroy');
 
     Route::get('/sector-cheques', [SectorChequesController::class, 'index'])->name('sector-cheques');
+    Route::post('/denunciados', [DenunciadosController::class, 'show'])->name('denunciados.show');
 });
 
 // AUTH = 2 3

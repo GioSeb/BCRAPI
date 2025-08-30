@@ -2,7 +2,18 @@
 @section('title', 'Sector de cheques')
 
 @section('content')
+{{-- En esta base podrás consultar cheques denunciados como extraviados, sustraídos o adulterados.
 
+La información disponible aquí es suministrada por las entidades bancarias que operan en el país y se publica sin alteraciones.
+
+Su difusión no implica conformidad por parte de este Banco Central.
+
+Al realizar una consulta:
+
+Tené en cuenta que en el menú solo se despliegan las entidades que registran cheques denunciados vigentes a la fecha de la consulta.
+Verificá que el número de cheque coincida en los 4 lugares del documento donde se encuentra impreso. Si encontrás diferencias, podría tratarse de un documento adulterado.
+Verificá si el número de la sucursal y el de la cuenta que muestra la pantalla coinciden con el que está impreso en el documento, ya que el número de cheque puede repetirse en distintas cuentas corrientes pertenecientes a un mismo banco.
+En el caso de que una entidad aparezca más de una vez en el listado deberás consultar el cheque en cada una de las denominaciones que se muestren. --}}
         <div class="min-h-screen flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-900 text-gray-200 font-sans antialiased">
         {{-- Main container card --}}
         <div class="w-full max-w-4xl p-8 bg-gray-800 rounded-3xl shadow-2xl">
@@ -14,7 +25,7 @@
             </div>
 
             {{-- Form for input with CSRF protection --}}
-            <form action="{{ route('cheque.consult') }}" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-12">
+            <form action="{{ route('denunciados.show') }}" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-12">
                 @csrf
 
                 {{-- Input group for Cheque Numero --}}
@@ -30,6 +41,12 @@
                             placeholder="12345678"
                             class="mt-1 block w-full rounded-full border-0 bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 py-2.5 px-5 shadow-sm sm:text-sm sm:leading-6"
                         >
+                        <select name="entidad" id="entidad" class="text-black">
+                            <option value="" selected></option>
+                            @foreach ($bancos['results'] as $entidad)
+                                <option value="{{$entidad['codigoEntidad']}}" class="text-black">{{$entidad['denominacion']}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
@@ -43,7 +60,15 @@
                     </button>
                 </div>
             </form>
-
+            @if ($errors->any())
+                <div class="bg-red-500 text-white p-4 rounded-lg">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             {{-- Result/Text area --}}
             <div class="mt-12 bg-gray-700 rounded-2xl p-6 shadow-inner text-gray-300 text-sm leading-relaxed">
                 <p>
