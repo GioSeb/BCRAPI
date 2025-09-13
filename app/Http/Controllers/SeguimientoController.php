@@ -18,7 +18,7 @@ class SeguimientoController extends Controller
     {
         $request->validate([
             'cuit' => 'required|digits:11',
-            'denominacion' => 'required|string|max:255',
+            'denominacion' => 'string|max:255',
             'situations' => 'required|json', // Validate the incoming data
         ]);
 

@@ -28,6 +28,14 @@ class InformeController extends Controller
             return $historial;
         }
 
+        // Specifically handle the 404 Not Found error
+        if ($response->status() === 404) {
+            return [
+                'status' => 404,
+                'errorMessages' => ['No se encontró datos para la identificación ingresada.']
+            ];
+        }
+
         // Handle errors
         return null;
     }
@@ -128,18 +136,36 @@ class InformeController extends Controller
     public function fetchInforme(Request $request) {
         // Validate input
         $request->validate([
-            'cuit' => 'required|digits:11', // Ensure CUIT is 11 digits
-        ]);
+            'cuit' => 'required|numeric|digits:11', // Ensure CUIT is 11 digits
+        ],
+    );
 
         // Extract CUIT from request
         $cuit = $request->input('cuit');
-        $isFollowing = Auth::user()->seguimientos()->where('cuit', $cuit)->exists();
 
-        // Fetch data from API calls
+
+        // Fetch data from Historico call
         $historial = $this->fetchHistorial($cuit);
+
+        // Handle CUIT not found (404) specifically by redirecting back with an error
+        if (isset($historial['status']) && $historial['status'] === 404) {
+            return redirect()->route('nuevo-informe')
+                ->withErrors(['cuit' => 'No se encontró información para el CUIT ingresado.'])
+                ->withInput();
+        }
+
+        // Fetch the rest of the data
         $deudor = $this->fetchDeudor($cuit);
         $rechazados = $this->fetchChequesRechazados($cuit);
 
+        // Check for any other critical API failures (if any result is null)
+        if ($historial === null || $deudor === null || $rechazados === null) {
+            return redirect()->route('nuevo-informe')
+                ->withErrors(['cuit' => 'No se pudieron obtener los datos completos. Por favor, intente de nuevo más tarde.'])
+                ->withInput();
+        }
+
+        $isFollowing = Auth::user()->seguimientos()->where('cuit', $cuit)->exists();
         // Check for critical failures.
         // The report can be generated if 'historial' and 'rechazados' are successful,
         // and 'deudor' is either successful (200) or not found (404).

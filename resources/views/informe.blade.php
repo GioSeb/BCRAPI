@@ -73,6 +73,53 @@
             </div>
         </div>
 
+        {{-- Rejected Checks Card --}}
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-3">
+                 <img src="{{ asset('img/informe/checks.png') }}" alt="Checks Icon" class="h-6 w-6">
+                Central de Cheques Rechazados
+            </h2>
+             @if ($rechazados['status'] === 200 && !empty($rechazados['results']['causales']))
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Entidad</th>
+                                <th scope="col" class="px-6 py-3">Nro. Cheque</th>
+                                <th scope="col" class="px-6 py-3 text-right">Monto</th>
+                                <th scope="col" class="px-6 py-3 text-center">Fecha Rechazo</th>
+                                <th scope="col" class="px-6 py-3">Causal</th>
+                                <th scope="col" class="px-6 py-3 text-center">Fecha Pago</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($rechazados['results']['causales'] as $causal)
+                                @foreach ($causal['entidades'] as $entidad)
+                                    @foreach ($entidad['detalle'] as $detalleCheque)
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">{{ $entidad['nombreEntidad'] ?? 'No disponible' }}</td>
+                                            <td class="px-6 py-4 font-mono">{{ $detalleCheque['nroCheque'] }}</td>
+                                            <td class="px-6 py-4 text-right font-mono">${{ number_format($detalleCheque['monto'], 2, ',', '.') }}</td>
+                                            <td class="px-6 py-4 text-center">{{ \Carbon\Carbon::parse($detalleCheque['fechaRechazo'])->format('d/m/Y') }}</td>
+                                            <td class="px-6 py-4">{{ $causal['causal'] }}</td>
+                                            <td class="px-6 py-4 text-center">{{ $detalleCheque['fechaPago'] ? \Carbon\Carbon::parse($detalleCheque['fechaPago'])->format('d/m/Y') : '-' }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <div class="text-center py-8 px-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700">
+                    <div class="flex items-center justify-center gap-3 text-green-700 dark:text-green-300">
+                        <img src="{{ asset('img/informe/clean.png') }}" alt="Clean Icon" class="h-6 w-6">
+                        <p class="font-semibold">No se registran cheques rechazados.</p>
+                    </div>
+                </div>
+            @endif
+        </div>
+
         {{-- Debtors Central Card --}}
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
             <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-3">
@@ -178,53 +225,6 @@
                     </div>
                 </div>
             @endforeach
-        </div>
-
-        {{-- Rejected Checks Card --}}
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-3">
-                 <img src="{{ asset('img/informe/checks.png') }}" alt="Checks Icon" class="h-6 w-6">
-                Central de Cheques Rechazados
-            </h2>
-             @if ($rechazados['status'] === 200 && !empty($rechazados['results']['causales']))
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">Entidad</th>
-                                <th scope="col" class="px-6 py-3">Nro. Cheque</th>
-                                <th scope="col" class="px-6 py-3 text-right">Monto</th>
-                                <th scope="col" class="px-6 py-3 text-center">Fecha Rechazo</th>
-                                <th scope="col" class="px-6 py-3">Causal</th>
-                                <th scope="col" class="px-6 py-3 text-center">Fecha Pago</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($rechazados['results']['causales'] as $causal)
-                                @foreach ($causal['entidades'] as $entidad)
-                                    @foreach ($entidad['detalle'] as $detalleCheque)
-                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">{{ $entidad['nombreEntidad'] ?? 'No disponible' }}</td>
-                                            <td class="px-6 py-4 font-mono">{{ $detalleCheque['nroCheque'] }}</td>
-                                            <td class="px-6 py-4 text-right font-mono">${{ number_format($detalleCheque['monto'], 2, ',', '.') }}</td>
-                                            <td class="px-6 py-4 text-center">{{ \Carbon\Carbon::parse($detalleCheque['fechaRechazo'])->format('d/m/Y') }}</td>
-                                            <td class="px-6 py-4">{{ $causal['causal'] }}</td>
-                                            <td class="px-6 py-4 text-center">{{ $detalleCheque['fechaPago'] ? \Carbon\Carbon::parse($detalleCheque['fechaPago'])->format('d/m/Y') : '-' }}</td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @else
-                <div class="text-center py-8 px-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700">
-                    <div class="flex items-center justify-center gap-3 text-green-700 dark:text-green-300">
-                        <img src="{{ asset('img/informe/clean.png') }}" alt="Clean Icon" class="h-6 w-6">
-                        <p class="font-semibold">No se registran cheques rechazados.</p>
-                    </div>
-                </div>
-            @endif
         </div>
 
     </div>
