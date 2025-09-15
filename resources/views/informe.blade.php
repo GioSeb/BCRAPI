@@ -23,7 +23,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">
-                                <img src="{{ asset('img/informe/unfollow.png') }}" alt="Unfollow Icon" class="h-5 w-5">
+                                <img src="{{asset('img/panel/minus.png')}}" alt="Unfollow Icon" class="h-5 w-5">
                                 Dejar de Seguir
                             </button>
                         </form>
@@ -41,8 +41,8 @@
                                 $allSituations = $deudor['results']['periodos'][0]['entidades'] ?? [];
                             @endphp
                             <input type="hidden" name="situations" value="{{ json_encode($allSituations) }}">
-                            <button type="submit" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all">
-                                <img src="{{ asset('img/informe/follow.png') }}" alt="Follow Icon" class="h-5 w-5">
+                            <button type="submit" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all">
+                                <img src="{{asset('img/panel/plus.png')}}" alt="Follow Icon" class="h-5 w-5">
                                 Seguir CUIT
                             </button>
                         </form>
@@ -54,7 +54,7 @@
         {{-- Identification Card --}}
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
             <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-3">
-                <img src="{{ asset('img/informe/identification.png') }}" alt="Identification Icon" class="h-6 w-6">
+                <img src="{{ asset('img/informe/separator.png') }}" alt="Identification Icon" class="h-6 w-6">
                 Identificación
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
@@ -76,7 +76,7 @@
         {{-- Rejected Checks Card --}}
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
             <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-3">
-                 <img src="{{ asset('img/informe/checks.png') }}" alt="Checks Icon" class="h-6 w-6">
+                 <img src="{{ asset('img/informe/separator.png') }}" alt="Checks Icon" class="h-6 w-6">
                 Central de Cheques Rechazados
             </h2>
              @if ($rechazados['status'] === 200 && !empty($rechazados['results']['causales']))
@@ -123,12 +123,31 @@
         {{-- Debtors Central Card --}}
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
             <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-3">
-                <img src="{{ asset('img/informe/debtors.png') }}" alt="Debtors Icon" class="h-6 w-6">
+                <img src="{{ asset('img/informe/separator.png') }}" alt="Debtors Icon" class="h-6 w-6">
                 Central de Deudores del Sistema Financiero
             </h2>
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">
-                Información sobre deudas con entidades financieras. Los montos están expresados en miles de pesos.
+                Las entidades que componen el sistema financiero regulado por el BANCO CENTRAL DE LA REPÚBLICA ARGENTINA informan mensualmente al mismo los créditos otorgados, montos y situación de pago, reservándose de informar aquellos créditos que por montos pequeños o garantías especiales no revelan riesgo en el sistema. Cualquier inculplimiento activa la publicidad del dato y se incorpora la totalidad de la operatoria.
             </p>
+
+            <li class="text-sm text-gray-600 dark:text-gray-400 mb-6 font-bold">Situación:
+                <ul>
+                    <li class="m-1"><span class="px-2 py-1 font-semibold leading-tight rounded-full text-xs bg-gray-100 text-gray-800">0: Sin deuda</span></li>
+                    <li class="m-1"><span class="px-2 py-1 font-semibold leading-tight rounded-full text-xs bg-green-100 text-green-800">1:  En situación normal | Situación normal</span></li>
+                    <li class="m-1"><span class="px-2 py-1 font-semibold leading-tight rounded-full text-xs bg-blue-100 text-blue-800">2:  Con seguimiento especial | Riesgo bajo</span></li>
+                    <li class="m-1"><span class="px-2 py-1 font-semibold leading-tight rounded-full text-xs bg-yellow-100 text-yellow-800">3:  Con problemas | Riesgo medio</span></li>
+                    <li class="m-1"><span class="px-2 py-1 font-semibold leading-tight rounded-full text-xs bg-orange-100 text-orange-800">4:  Con alto riesgo de insolvencia | Riesgo alto</span></li>
+                    <li class="m-1"><span class="px-2 py-1 font-semibold leading-tight rounded-full text-xs bg-red-100 text-red-800">5:  Irrecuperable | Irrecuperable</span></li>
+                </ul>
+            </li>
+            <li class="text-sm text-gray-600 dark:text-gray-400 mb-6 font-bold"> Observaciones:
+                <ul class="m-1 font-light"><strong class="font-semibold">Refinanciaciones: </strong>Encuadre de situación “Refinanciaciones”.</ul>
+                <ul class="m-1 font-light"><strong class="font-semibold">Recategorización obligatoria: </strong>Encuadre de situación “Recategorización obligatoria”.</ul>
+                <ul class="m-1 font-light"><strong class="font-semibold">Situación jurídica: </strong>Encuadre de situación “Situación jurídica (concordatos judiciales o extrajudiciales, concurso preventivo, gestión judicial o quiebra)”</ul>
+                <ul class="m-1 font-light"><strong class="font-semibold">Irrecuperable por disposición técnica: </strong>Encuadre de situación “Irrecuperable por Disposición Técnica”</ul>
+                <ul class="m-1 font-light"><strong class="font-semibold">En revisión: </strong>Información sometida a revisión (Ley 25.326, art. 16, inc 6)</ul>
+                <ul class="m-1 font-light"><strong class="font-semibold">Proceso judicial: </strong>Información sometida a proceso judicial (Ley 25.326, art. 38, inc. 3) </ul>
+            </li>
 
             @if ($deudor['status'] === 200)
                 <div class="overflow-x-auto">
@@ -137,7 +156,7 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3">Entidad</th>
                                 <th scope="col" class="px-6 py-3 text-center">Situación</th>
-                                <th scope="col" class="px-6 py-3 text-right">Monto (Miles)</th>
+                                <th scope="col" class="px-6 py-3 text-right">Monto</th>
                                 <th scope="col" class="px-6 py-3 text-center">Período</th>
                                 <th scope="col" class="px-6 py-3">Observaciones</th>
                             </tr>
@@ -164,7 +183,7 @@
                                                 {{ $situacionText }} ({{$entidadDeudor['situacion']}})
                                             </span>
                                         </td>
-                                        <td class="px-6 py-4 text-right font-mono">${{ number_format($entidadDeudor['monto'], 2, ',', '.') }}</td>
+                                        <td class="px-6 py-4 text-right font-mono">${{ number_format($entidadDeudor['monto'] * 1000, 2, ',', '.') }}</td>
                                         <td class="px-6 py-4 text-center">{{ \Carbon\Carbon::createFromFormat('Ym', $arrayDeudor['periodo'])->format('m/Y') }}</td>
                                         <td class="px-6 py-4">
                                             @if ($entidadDeudor['procesoJud']) <span class="text-red-500 font-semibold">En Proceso Judicial</span> @else - @endif
@@ -185,7 +204,7 @@
         {{-- Historical Data by Entity --}}
         <div class="space-y-4 mb-8">
             <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-0 flex items-center gap-3">
-                <img src="{{ asset('img/informe/history.png') }}" alt="History Icon" class="h-6 w-6">
+                <img src="{{ asset('img/informe/separator.png') }}" alt="History Icon" class="h-6 w-6">
                 Historial por Entidad
             </h2>
             @foreach ( $historial['results']['entidades'] as $entidadHistorial)
@@ -204,7 +223,7 @@
                                     <tr>
                                         <th class="px-6 py-3">Período</th>
                                         <th class="px-6 py-3 text-center">Situación</th>
-                                        <th class="px-6 py-3 text-right">Monto (Miles)</th>
+                                        <th class="px-6 py-3 text-right">Monto</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -212,11 +231,23 @@
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <td class="px-6 py-4">{{ \Carbon\Carbon::createFromFormat('Ym', $periodo['periodo'])->format('m/Y') }}</td>
                                         <td class="px-6 py-4 text-center">
-                                            <span class="px-2 py-1 font-semibold leading-tight rounded-full text-xs {{-- Add classes based on situation --}}">
-                                                {{ $periodo['situacion'] }}
+                                            @php
+                                                $situacionClass = '';
+                                                $situacionText = 'Desconocida';
+                                                switch ($periodo['situacion']) {
+                                                    case 0: $situacionClass = 'bg-gray-100 text-gray-800'; $situacionText = 'Sin Deuda'; break;
+                                                    case 1: $situacionClass = 'bg-green-100 text-green-800'; $situacionText = 'Normal'; break;
+                                                    case 2: $situacionClass = 'bg-blue-100 text-blue-800'; $situacionText = 'Riesgo Bajo'; break;
+                                                    case 3: $situacionClass = 'bg-yellow-100 text-yellow-800'; $situacionText = 'Riesgo Medio'; break;
+                                                    case 4: $situacionClass = 'bg-orange-100 text-orange-800'; $situacionText = 'Riesgo Alto'; break;
+                                                    case 5: $situacionClass = 'bg-red-100 text-red-800'; $situacionText = 'Irrecuperable'; break;
+                                                }
+                                            @endphp
+                                            <span class="px-2 py-1 font-semibold leading-tight rounded-full text-xs {{ $situacionClass }}">
+                                                {{ $situacionText }} ({{$periodo['situacion']}})
                                             </span>
                                         </td>
-                                        <td class="px-6 py-4 text-right font-mono">${{ number_format($periodo['monto'], 2, ',', '.') }}</td>
+                                        <td class="px-6 py-4 text-right font-mono">${{ number_format($periodo['monto'] * 1000, 2, ',', '.') }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

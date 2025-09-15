@@ -126,7 +126,7 @@ class InformeController extends Controller
 
         // The API returns 404 if there are no rejected checks, which is a valid case.
         if ($response->status() === 404) {
-            return ['results' => [], 'status' => 404, 'errorMessages' => 'No se encontraron cheques rechazados para este CUIT'];
+            return ['results' => [], 'status' => 404, 'errorMessages' => 'No se encontraron cheques rechazados para este CUIT/CUIL'];
         }
 
         // For any other error, return null
@@ -150,7 +150,7 @@ class InformeController extends Controller
         // Handle CUIT not found (404) specifically by redirecting back with an error
         if (isset($historial['status']) && $historial['status'] === 404) {
             return redirect()->route('nuevo-informe')
-                ->withErrors(['cuit' => 'No se encontró información para el CUIT ingresado.'])
+                ->withErrors(['cuit' => 'No se encontró información para el CUIT/CUIL ingresado.'])
                 ->withInput();
         }
 
