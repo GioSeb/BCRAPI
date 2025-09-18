@@ -55,7 +55,7 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actividad</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Cargo</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Vínculo</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Estado</th>
+{{--                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Estado</th> --}}
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Rol</th>
                                 @if(Auth::user()->isMaster())
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Generado por</th>
@@ -72,14 +72,14 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $user->actividad ?? 'N/A' }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $user->cargo ?? 'N/A' }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $user->vinculo ?? 'N/A' }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+{{--                                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                             @if($user->estado == 'Activo') bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100
                                             @elseif($user->estado == 'Pendiente') bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-100
                                             @else bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-100 @endif">
                                             {{ $user->estado ?? 'N/A' }}
                                         </span>
-                                    </td>
+                                    </td> --}}
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ $user->role->name ?? 'Sin Rol' }}</td>
                                     @if(Auth::user()->isMaster())
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">

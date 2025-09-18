@@ -100,7 +100,7 @@ En el caso de que una entidad aparezca más de una vez en el listado deberás co
                     Al realizar una consulta:
                 </p>
                 <ul class="list-disc list-inside ml-4 text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                    <li>Tené en cuenta que en el menú solo se despliegan las entidades que registran cheques denunciados vigentes a la fecha de la consulta.</li>
+                    <li>Ten en cuenta que en el menú solo se despliegan las entidades que registran cheques denunciados vigentes a la fecha de la consulta.</li>
                     <li>Verificá si el nombre de la entidad que muestra la pantalla coincide con el que está impreso en el documento, ya que el número de cheque puede repetirse en distintas entidades bancarias.</li>
                     <li>En el caso de que una entidad aparezca más de una vez en el listado deberás consultar el cheque en cada una de las denominaciones que se muestren.</li>
                 </ul>
