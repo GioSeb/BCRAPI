@@ -18,7 +18,21 @@ return [
     'numeric'  => 'El campo :attribute debe ser un número.',
     'string'   => 'El campo :attribute debe ser una cadena de texto.',
     'email'    => 'El campo :attribute debe ser una dirección de correo válida.',
+    'unique' => 'El :attribute ya existe.',
+    'confirmed' => 'La confirmación de la contraseña no coincide.',
 
+        // Reglas para el objeto Password
+    'password' => [
+        'letters' => 'El campo :attribute debe contener al menos una letra.',
+        'mixed' => 'El campo :attribute debe contener al menos una letra mayúscula y una minúscula.',
+        'numbers' => 'El campo :attribute debe contener al menos un número.',
+        'symbols' => 'El campo :attribute debe contener al menos un símbolo.',
+        'confirmed' => 'La confirmación de la contraseña no coincide.'
+    ],
+
+    'min' => [
+        'string' => 'El campo :attribute debe tener al menos :min caracteres.',
+    ],
 
     /*
     |--------------------------------------------------------------------------

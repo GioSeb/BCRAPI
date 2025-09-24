@@ -74,8 +74,8 @@ class UserController extends Controller
             'vinculo' => 'required|string',
             'domicilio' => 'required|string',
             'localidad' => 'required|string',
-            'telefono' => 'required|string',
-            'cuit' => 'required|string',
+            'telefono' => 'required|numeric',
+            'cuit' => 'required|numeric|digits:11',
             /* 'estado' => 'required|string', */
         ]);
 
@@ -105,7 +105,7 @@ class UserController extends Controller
         // You might need a custom notification to explain it's the *first* login setup.
 
         // Redirect after creation
-        return redirect()->route('admin.usuarios.index')->with('success', 'User created successfully. Password details sent (or reset initiated).');
+        return redirect()->route('admin.usuarios.index')->with('success', 'Usuario creado exitosamente.');
     }
 
     // Implement edit, update, destroy methods as needed, applying authorization checks.
@@ -161,6 +161,6 @@ class UserController extends Controller
          // Add more checks as needed
 
          $user->delete();
-         return redirect()->route('admin.usuarios.index')->with('success', 'User deleted successfully.');
+         return redirect()->route('admin.usuarios.index')->with('success', 'User eliminado con éxito.');
     }
 }

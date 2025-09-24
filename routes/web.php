@@ -81,9 +81,9 @@ Route::middleware('guest')->group(function () {
 })->middleware(['auth', 'can:manage-users'])->name('panel.view'); */
 
 /* TO DO register temporal, cambiar a admin/users/create.blade */
-Route::get('/register', function () {
+/* Route::get('/register', function () {
     return view('auth.register');
-})->name('register');
+})->name('register'); */
 
 /* // TO DO auth para acceder al panel si sos admin
 Route::middleware(['auth', 'can:manage-users'])->prefix('admin')->name('admin.')->group(function () {

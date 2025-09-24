@@ -31,12 +31,7 @@
                         <form action="{{ route('seguimientos.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="cuit" value="{{ $historial['results']['identificacion'] }}">
-                            @if ($historial['results']['denominacion'] === !null)
-                                <input type="hidden" name="denominacion" value="{{ $historial['results']['denominacion'] }}">
-                            @else
-                                <input type="hidden" name="denominacion" value="Sin denominación.">
-                            @endif
-
+                                <input type="hidden" name="denominacion" value="{{ $historial['results']['denominacion'] ?? 'Sin denominación.'}}">
                             @php
                                 $allSituations = $deudor['results']['periodos'][0]['entidades'] ?? [];
                             @endphp

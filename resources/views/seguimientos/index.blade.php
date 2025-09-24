@@ -41,17 +41,20 @@
                                                     @foreach ($seguimiento->situations as $situation)
                                                         <div class="flex items-center justify-between gap-4">
                                                             <span class="text-xs font-medium text-gray-700 dark:text-gray-300">{{ $situation['entidad'] ?? 'N/A' }}</span>
-                                                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full flex-shrink-0
-                                                                @switch($situation['situacion'] ?? 0)
-                                                                    @case(1)
-                                                                    @case(2) bg-green-100 text-green-800 @break
-                                                                    @case(3) bg-yellow-100 text-yellow-800 @break
-                                                                    @case(4)
-                                                                    @case(5) bg-red-100 text-red-800 @break
-                                                                    @default bg-gray-100 text-gray-800
-                                                                @endswitch
-                                                            ">
-                                                                Situación {{ $situation['situacion'] ?? 'N/A' }}
+                                                            @php
+                                                                $situacionClass = '';
+                                                                $situacionText = 'Sin datos de situación.';
+                                                                switch ($situation['situacion']) {
+                                                                    case 0: $situacionClass = 'bg-gray-100 text-gray-800'; $situacionText = 'Sin Deuda'; break;
+                                                                    case 1: $situacionClass = 'bg-green-100 text-green-800'; $situacionText = 'Normal'; break;
+                                                                    case 2: $situacionClass = 'bg-blue-100 text-blue-800'; $situacionText = 'Riesgo Bajo'; break;
+                                                                    case 3: $situacionClass = 'bg-yellow-100 text-yellow-800'; $situacionText = 'Riesgo Medio'; break;
+                                                                    case 4: $situacionClass = 'bg-orange-100 text-orange-800'; $situacionText = 'Riesgo Alto'; break;
+                                                                    case 5: $situacionClass = 'bg-red-100 text-red-800'; $situacionText = 'Irrecuperable'; break;
+                                                                }
+                                                            @endphp
+                                                            <span class="px-2 py-1 font-semibold leading-tight rounded-full text-xs {{ $situacionClass }}">
+                                                               ({{$situacionText}}) ({{$situation['situacion']}})
                                                             </span>
                                                         </div>
                                                     @endforeach

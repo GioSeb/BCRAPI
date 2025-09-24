@@ -8,9 +8,9 @@
         <h1 class="text-4xl font-extrabold text-center mb-8">Administración de Usuarios</h1>
 
         {{-- Botón para agregar usuario --}}
-        <div class="flex justify-end mb-8">
-            <a href="{{ route('admin.usuarios.create') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                <img src="{{asset('img/panel/plus.png')}}" alt="Agregar Usuario" class="h-5 w-5 mr-2 filter invert"> {{-- 'filter invert' para que el ícono sea blanco --}}
+        <div class="flex justify-start mb-8">
+            <a href="{{ route('admin.usuarios.create') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium shadow-sm text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                <img src="{{asset('img/panel/plus.png')}}" alt="Agregar Usuario" class="h-5 w-5 mr-2"> {{-- 'filter invert' para que el ícono sea blanco --}}
                 Agregar Usuario
             </a>
         </div>
