@@ -8,7 +8,7 @@
             {{-- Left Side: Information --}}
             <div class="text-center lg:text-left">
                 <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight mb-4">
-                    Decisiones de Negocio Inteligentes Basadas en Datos Confiables
+                    Decisiones de negocio inteligentes basadas en datos confiables.
                 </h1>
                 <p class="text-gray-300 text-lg mb-8">
                     Acceda a informes de riesgo crediticio completos y actualizados para minimizar riesgos y maximizar oportunidades. Nuestra plataforma le brinda la información que necesita para operar con seguridad.
@@ -58,13 +58,12 @@
                                 autocomplete="current-password" />
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
-
-                        <div class="flex items-center justify-between mb-6">
                             {{-- Remember Me --}}
+{{--                         <div class="flex items-center justify-between mb-6">
                             <label for="remember_me" class="inline-flex items-center">
                                 <input id="remember_me" type="checkbox" class="rounded bg-gray-700 border-gray-600 text-blue-500 shadow-sm focus:ring-blue-500" name="remember">
                                 <span class="ml-2 text-sm text-gray-400">{{ __('Recordarme') }}</span>
-                            </label>
+                            </label> --}}
 
                             @if (Route::has('password.request'))
                                 <a class="text-sm text-blue-500 hover:underline" href="{{ route('password.request') }}">
@@ -75,7 +74,7 @@
 
                         {{-- Login Button --}}
                         <div>
-                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition-transform transform hover:scale-105" type="submit">
+                            <button class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition-transform transform hover:scale-105" type="submit">
                                 {{ __('Ingresar') }}
                             </button>
                         </div>

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Dashboard')
+@section('title', 'Inicio')
 
 @section('content')
 <div class="bg-gray-900 min-h-screen text-white">

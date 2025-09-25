@@ -110,18 +110,18 @@ class UserController extends Controller
 
     // Implement edit, update, destroy methods as needed, applying authorization checks.
     // Example: update method
-    public function edit(User $user)
+    public function edit(User $usuario)
     {
-        return view('admin.usuarios.edit', compact('user'));
+        return view('admin.usuarios.edit', compact('usuario'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $usuario)
     {
         // Validation rules for all fields from the form
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             // Ensures the email is unique, but ignores the current user's email
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($usuario->id)],
             // Added validation for the new fields. 'nullable' means they are optional.
             // Change to 'required' if they must be filled.
             'actividad' => ['required', 'string', 'max:255'],
@@ -146,21 +146,21 @@ class UserController extends Controller
         ]);
 
         // Update the user with the validated data
-        $user->update($validatedData);
+        $usuario->update($validatedData);
 
         // Redirect back to the user list with a success message
         return redirect()->route('admin.usuarios.index')->with('success', 'Usuario actualizado con éxito.');
     }
 
-    public function destroy(User $user)
+    public function destroy(User $usuario)
     {
          // Optional: Add checks to prevent deleting the last admin or oneself TO DO
-         if ($user->id === Auth::id()) {
-              return back()->with('error', 'You cannot delete yourself.');
+         if ($usuario->id === Auth::id()) {
+              return back()->with('error', 'No es posible eliminar su propio usuario, contáctenos si es lo que desea hacer.');
          };
          // Add more checks as needed
 
-         $user->delete();
-         return redirect()->route('admin.usuarios.index')->with('success', 'User eliminado con éxito.');
+         $usuario->delete();
+         return redirect()->route('admin.usuarios.index')->with('success', 'Usuario eliminado con éxito.');
     }
 }
