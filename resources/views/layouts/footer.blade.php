@@ -9,7 +9,6 @@
                 <p class="text-gray-400 leading-relaxed">
                     Contáctenos y le remitiremos claves para un periodo de evaluación gratuita.
                     Planes comerciales para Cámaras, Empresas, Pymes y Micro emprendimientos.
-                    Desde 1972 en el mercado argentino y latinoamericano.
                 </p>
             </div>
 
@@ -46,27 +45,10 @@
                 @endauth
             </div>
 
-            {{-- Conditional rendering for Newsletter Section: Only if logged in AND not on 'index' page --}}
-            @auth
-                @if (Route::currentRouteName() !== 'index') {{-- Assumes 'index' is the name of your home route --}}
-                    <div>
-                        <h4 class="text-lg font-semibold mb-4">Our Newsletter</h4>
-                        <p class="text-gray-400 mb-4">
-                            Tamen quem nulla quae legam multos aute sint culpa legam noster magna.
-                        </p>
-                        <form action="#" method="post" class="flex flex-col sm:flex-row">
-                            <input type="email" name="email" placeholder="Enter your email" class="w-full px-4 py-2 rounded-l-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2 sm:mb-0">
-                            <input type="submit" value="Subscribe" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-r-md cursor-pointer transition-colors duration-300">
-                        </form>
-                    </div>
-                @endif
-            @endauth
-
-        </div>
-
         <!-- Copyright Section -->
-        <div class="mt-8 pt-4 border-t border-gray-700 text-center"> {{-- Changed mt-12 to mt-8 and pt-8 to pt-4 --}}
-            <p class="text-gray-500">&copy; Copyright <strong>Nexor</strong>. All Rights Reserved</p>
+        <div class="mt-8 pt-4  border-gray-700 text-center"> {{-- Changed mt-12 to mt-8 and pt-8 to pt-4 --}}
+            <p class="text-gray-500">&copy; Copyright <strong>Nexor</strong>. Derechos reservados.</p>
+            <p class="text-gray-500">Desarrollado por Sebastián Gioiose.</p>
         </div>
     </div>
 </footer>
