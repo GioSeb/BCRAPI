@@ -31,7 +31,7 @@ class DenunciadosController extends Controller
 
     public function show(Request $request){
         $request->validate([
-            'cheque_numero' => 'required | int',
+            'cheque_numero' => 'required | numeric',
             'entidad' => 'required'
         ]);
 

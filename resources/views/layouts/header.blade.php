@@ -55,23 +55,38 @@
             </div>
 
 
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <div class="flex items-center space-x-4">
-                    @auth
+<div class="hidden sm:flex sm:items-center sm:ml-6">
+    <div class="flex items-center space-x-4">
+        @auth
+            <div x-data="{ open: false }" class="relative">
+                <button @click="open = !open" class="text-white font-semibold flex items-center space-x-2 focus:outline-none">
+                    <span>Hola, {{ Auth::user()->name }}</span>
+                    <svg class="h-4 w-4 text-white transition-transform duration-200 transform" :class="{'rotate-180': open}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
 
-                        <span class="text-white font-semibold">Hola, {{ Auth::user()->name }}</span>
-                        <a href="{{ route('profile.edit') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Panel de Usuario
-                        </a>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                Cerrar Sesión
-                            </button>
-                        </form>
-                    @endauth
+                <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-gray-700 rounded-md shadow-lg py-1 z-50 transition-opacity duration-200"
+                    x-transition:enter="transition ease-out duration-100"
+                    x-transition:enter-start="transform opacity-0 scale-95"
+                    x-transition:enter-end="transform opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75"
+                    x-transition:leave-start="transform opacity-100 scale-100"
+                    x-transition:leave-end="transform opacity-0 scale-95">
+                    <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-md m-1 text-center">
+                        Panel de Usuario
+                    </a>
+                    <form method="POST" action="{{ route('logout') }}" class="block px-4 py-2 text-sm text-white bg-red-600 hover:bg-red-700 rounded-md m-1">
+                        @csrf
+                        <button type="submit" class="w-full">
+                            Cerrar Sesión
+                        </button>
+                    </form>
                 </div>
             </div>
+        @endauth
+    </div>
+</div>
 
             {{-- Mobile menu button --}}
             <div class="-mr-2 flex items-center sm:hidden">
