@@ -1,4 +1,3 @@
-{{-- resources/views/informe.blade.php --}}
 @extends('layouts.app')
 @section('title', 'Informe Detallado')
 

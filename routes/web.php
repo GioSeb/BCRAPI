@@ -97,3 +97,7 @@ Route::middleware(['auth', 'can:manage-users'])->prefix('admin')->name('admin.')
 Route::post('/crear/usuario', [UserController::class, 'store']);
 
 require __DIR__.'/auth.php';
+
+Route::get('/inicio', function(){
+    return view('ilustrativo.inicio');
+});
