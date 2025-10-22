@@ -100,19 +100,19 @@
             <div class="container mx-auto px-4">
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="text-center p-6 shadow-lg rounded-lg bg-blue-500 text-white">
-                        <i class="fas fa-users text-5xl mb-4"></i>
+                        <i class="fas fa-file text-5xl mb-4"></i>
                         <h4 class="text-xl font-bold mb-2"><a href="{{-- {{ route('commercial_report') }} --}}" class="">Informe Comercial</a></h4>
-                        <p class="text-sm">El sitio de consultas sintetiza 43 años de experiencia, creando un sistema on-line amigable y práctico para que pueda ser utilizado sin necesidad de ser un especialista en créditos.</p>
+                        <p class="text-sm">Máxima Hisibilidad Histórica y Tendencial.</p>
                     </div>
                     <div class="text-center p-6 shadow-lg rounded-lg bg-blue-500 text-white">
-                        <i class="fas fa-users text-5xl mb-4"></i>
-                        <h4 class="text-xl font-bold mb-2"><a href="{{-- {{ route('nexor_community') }} --}}" class="hover:text-gray-200">Comunidad Nexor</a></h4>
-                        <p class="text-sm">Minimiza los riesgos compartiendo la experiencia de otros proveedores, conociendo su comportamiento de pago, el monto de crédito, y los plazos.</p>
+                        <i class="fas fa-money-check text-5xl mb-4"></i>
+                        <h4 class="text-xl font-bold mb-2"><a href="{{-- {{ route('nexor_community') }} --}}" class="hover:text-gray-200">Sector de Cheques</a></h4>
+                        <p class="text-sm">Prevención Operativa de Fraude e Incumplimiento.</p>
                     </div>
                     <div class="text-center p-6 shadow-lg rounded-lg bg-blue-500 text-white">
                         <i class="fas fa-users text-5xl mb-4"></i>
                         <h4 class="text-xl font-bold mb-2"><a href="{{-- {{ route('user_generation') }} --}}" class="">Generación de usuarios</a></h4>
-                        <p class="text-sm">Una herramienta útil para aumentar el radio de protección sobre los riesgos de crédito. Permite habilitar a nuevos usuarios de manera simple y automática.</p>
+                        <p class="text-sm">Doble Capa de Seguridad.</p>
                     </div>
                 </div>
             </div>
@@ -138,40 +138,40 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="text-center p-6">
                         <div class="flex justify-center items-center mb-4"><i class="fas fa-users text-4xl text-blue-500"></i></div>
-                        <h4 class="text-xl font-bold mb-2"><a href="{{-- {{ route('community') }} --}}" target="_blank" class="text-gray-800 hover:text-blue-500">Comunidad</a></h4>
-                        <p>Minimiza los riesgos compartiendo la experiencia de otros proveedores, conociendo su comportamiento de pago, el monto de crédito, y los plazos.</p>
+                        <h4 class="text-xl font-bold mb-2"><a href="" target="_blank" class="text-gray-800 hover:text-blue-500">Generación de usuarios</a></h4>
+                        <p class="text-black">Esta funcionalidad es nuestro diferenciador estratégico. Al incentivar la transparencia mediante la oferta gratuita a sus socios, usted blinda su cadena de suministro. Puede monitorear vulnerabilidad en su cartera cercana. Esto le permite proteger su propio capital, asegurando la continuidad de la operación y transformando el due diligence en una asociación estratégica.</p>
                     </div>
                     <div class="text-center p-6">
                         <div class="flex justify-center items-center mb-4"><i class="fas fa-file-invoice text-4xl text-blue-500"></i></div>
-                        <h4 class="text-xl font-bold mb-2"><a href="{{-- {{ route('report') }} --}}" target="_blank" class="text-gray-800 hover:text-blue-500">Informe</a></h4>
-                        <p>Una herramienta útil para la toma de decisiones, para evitar formar parte de una cadena de fraudes y posibilitar más ventas con menos riesgos.</p>
+                        <h4 class="text-xl font-bold mb-2"><a href="" target="_blank" class="text-gray-800 hover:text-blue-500">Informe</a></h4>
+                        <p class="text-black">Nuestra plataforma le proporciona una visión profunda y tendencial al ofrecer un historial de 24 meses, en estricta alineación con el estándar de difusión del BCRA. Esto va más allá de un estado estático; le permite evaluar patrones de pago consistentes y la trayectoria real de la salud financiera de una entidad, habilitando una toma de decisiones informada sobre la solvencia a largo plazo.</p>
                     </div>
                     <div class="text-center p-6">
-                        <div class="flex justify-center items-center mb-4"><i class="fas fa-user-plus text-4xl text-blue-500"></i></div>
-                        <h4 class="text-xl font-bold mb-2"><a href="{{-- {{ route('user_generation') }} --}}" target="_blank" class="text-gray-800 hover:text-blue-500">Generación de usuarios</a></h4>
-                        <p>Aumente el radio de protección sobre los riesgos de crédito. Permite habilitar a nuevos usuarios (sin costo) de manera simple y automática.</p>
+                        <div class="flex justify-center items-center mb-4"><i class="fas fa-money-check text-4xl text-blue-500"></i></div>
+                        <h4 class="text-xl font-bold mb-2"><a href="" target="_blank" class="text-gray-800 hover:text-blue-500">Informe de cheques rechazados</a></h4>
+                        <p class="text-black">Los cheques devueltos son un indicador directo de la disciplina de flujo de caja y la salud operativa de un socio. Un monitoreo constante de esta información, regulada bajo la Ley 25.730 , le permite anticipar problemas de liquidez a corto plazo que no siempre se reflejan inmediatamente en el crédito bancario formal, asegurando la estabilidad transaccional.</p>
                     </div>
                     <div class="text-center p-6">
                         <div class="flex justify-center items-center mb-4"><i class="fas fa-eye text-4xl text-blue-500"></i></div>
-                        <h4 class="text-xl font-bold mb-2"><a href="{{-- {{ route('tracking') }} --}}" target="_blank" class="text-gray-800 hover:text-blue-500">Seguimiento</a></h4>
-                        <p>Nexor remitirá cada novedad sobre cheques o cumplimiento de pagos de los créditos al correo que nos indique, sin que medie requerimiento o consulta de su parte.</p>
+                        <h4 class="text-xl font-bold mb-2"><a href="" target="_blank" class="text-gray-800 hover:text-blue-500">Seguimiento</a></h4>
+                        <p class="text-black">El riesgo es dinámico. Nuestro servicio garantiza que su gestión no sea reactiva. Al recibir notificaciones automáticas e inteligentes sobre cualquier deterioro crediticio o cambio de situación, su equipo puede ajustar límites de crédito, renegociar plazos o buscar alternativas estratégicas antes de que el riesgo se materialice en una pérdida</p>
                     </div>
                     <div class="text-center p-6">
-                        <div class="flex justify-center items-center mb-4"><i class="fas fa-barcode text-4xl text-blue-500"></i></div>
-                        <h4 class="text-xl font-bold mb-2"><a href="#" class="text-gray-800 cursor-not-allowed">Cheques</a></h4>
-                        <p>La Central de Cheques Rechazados es una base de datos con la nómina de personas físicas y jurídicas responsables de los rechazos comprendidos.</p>
+                        <div class="flex justify-center items-center mb-4"><i class="fas fa-question text-4xl text-blue-500"></i></div>
+                        <h4 class="text-xl font-bold mb-2"><a href="#" class="text-gray-800">Sector de cheques individuales</a></h4>
+                        <p class="text-black">Ofrecemos la capacidad de eliminar la incertidumbre en cada operación crítica. Verificamos la validez de un cheque en el momento, identificando no solo la causa del rechazo, sino también quién realizó la denuncia. Esto proporciona un valor inmediato, blindando sus procesos de aceptación de pagos y minimizando riesgos legales y financieros en tiempo real.</p>
                     </div>
-                    <div class="text-center p-6">
+                    {{-- <div class="text-center p-6">
                         <div class="flex justify-center items-center mb-4"><i class="fas fa-chart-line text-4xl text-blue-500"></i></div>
                         <h4 class="text-xl font-bold mb-2"><a href="#" class="text-gray-800 cursor-not-allowed">Scoring</a></h4>
                         <p>Análisis por sistema de las variables más importantes del informe. Es una síntesis que se visualiza en forma previa a desarrollo del informe, simplificando la lectura.</p>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
 
         <!-- ======= About Us Section ======= -->
-        <section id="about" class="py-16">
+{{--         <section id="about" class="py-16">
             <div class="container mx-auto px-4">
                 <header class="text-center mb-12">
                     <h3 class="text-3xl font-bold text-gray-800">Nexor Informes Comerciales</h3>
@@ -210,7 +210,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
 
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="py-16 bg-gray-100">
